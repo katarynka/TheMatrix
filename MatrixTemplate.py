@@ -164,11 +164,14 @@ class Matrix:
 
 
 def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
-    """
-    Compute C = AB with three nested loops
-    """
-    raise NotImplementedError('Fill in the implementation')
-
+    n = A.cols()
+    C = Matrix(n,n)
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                temp = C.__getitem__((i,j)) + A.__getitem__((i,k))*B.__getitem__((k,j))
+                C.__setitem__((i,j),temp)
+    return C
 
 
 def transpose(A: Matrix)->None:
@@ -196,7 +199,7 @@ def elementary_multiplication_transposed(A: Matrix, B: Matrix)->Matrix:
 
 
 
-def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
+def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:                
     """
     Computes C=AB using (n/s)^3 multiplications of size s*s
     """
@@ -325,9 +328,18 @@ def strassen(A: Matrix, B: Matrix, m: int)->Matrix:
 # # print(M2)
 # # transpose(M2)
 # # print(M2)
-# # t1 = np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4)
-# # t2 = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
+# t1 = np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4)
+# t2 = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
 # # transpose(M2)
 # # print(elementary_multiplication_transposed(M1,M2))
-# # print("expected")
-# # print(np.matmul(t1,t2))
+# print(elementary_multiplication(M1,M2))
+# print("expected")
+# print(np.matmul(t1,t2))
+t3 = np.array([-5,8,-1,-1]).reshape(2,2)
+t4 = np.array([1,2,5,6]).reshape(2,2)
+test11 = np.matmul(t3,t4)
+t5 = np.array([-7,-10,3,-5]).reshape(2,2)
+t6 = np.array([9,10,13,14]).reshape(2,2)
+test12 = np.matmul(t5,t6)
+print("#1")
+print(np.add(test11,test12))
