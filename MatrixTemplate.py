@@ -204,7 +204,7 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
 
 
 
-def elementary_multiplication_in_place(C: Matrix, A: Matrix, B: Matrix)->None:
+def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     """
     An auxiliary function that computes elementary matrix
     multiplication in place, that is, the operation is C += AB such
@@ -251,16 +251,14 @@ def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
 def create_empty_C(n):
     return np.array([[0]*n]*n)
 
-
-#Trying with a C 
 def rec_matmul(A,B,C):
             
     n = len(A)
     
     if n == 1:
-        print(A)
-        print(B)
-        print(A*B)
+        print(' '.join(map(str,A.flatten())))
+        print(' '.join(map(str,B.flatten())))
+        print(' '.join(map(str,(A*B).flatten())))
         C += A*B
         return C
     
@@ -285,8 +283,8 @@ def rec_matmul(A,B,C):
         #M7 C lower right         a11             b11            c11
         a11b11 = rec_matmul(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:])
 
-    print(C)
-
+    [print(i, end=" ") for i in C.flatten()]
+    print()
 
        
 def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix:
@@ -305,7 +303,7 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix
     
     
     if n <= m:
-        elementary_multiplication_in_place(C,A,B)
+        elementary_multiplication_in_place(A,B,C)
     else:
         rec_matmul(A,B,C)
 
