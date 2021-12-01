@@ -228,6 +228,7 @@ def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
     P5 = A11
     P6 = A10
     P7 = A11
+    
     Q0 = B00
     Q1 = B10
     Q2 = B01
@@ -289,18 +290,18 @@ def rec_matmul(A,B,C):
        
 def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix:
     
-    # Computes C=AB recursively using a write-through strategy. That
-    # is, no intermediate copies are created; the matrix C is
-    # initialized as the function is first called, and all updates
-    # are done in-place in the recursive calls.
-     
-    # The parameter m controls such that when the subproblem size
-    # satisfies n <= m, * an iterative cubic algorithm is called instead.
+    #Instructions:
+        # Computes C=AB recursively using a write-through strategy. That
+        # is, no intermediate copies are created; the matrix C is
+        # initialized as the function is first called, and all updates
+        # are done in-place in the recursive calls.
+        
+        # The parameter m controls such that when the subproblem size
+        # satisfies n <= m, * an iterative cubic algorithm is called instead.
 
     #initializing C and getting the length of n
     n = len(A)
     C = create_empty_C(n)
-    
     
     if n <= m:
         elementary_multiplication_in_place(A,B,C)
