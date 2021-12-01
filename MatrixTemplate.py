@@ -248,18 +248,66 @@ def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
     raise NotImplementedError('Fill in the implementation')
 
 
+def create_empty_C(n):
+    return np.array([[0]*n]*n)
 
+
+#Trying with a C 
+def rec_matmul(A,B,C):
+            
+    n = len(A)
+    
+    if n == 1:
+        print(A)
+        print(B)
+        print(A*B)
+        C += A*B
+        return C
+    
+    else:
+        #M0 C upper left        a00               b00            c00
+        a00b00 = rec_matmul(A[:n//2,:n//2], B[:n//2,:n//2], C[:n//2,:n//2])
+        #M1 C upper left        a01               b10            c00
+        a01b10 = rec_matmul(A[:n//2,n//2:], B[n//2:,:n//2], C[:n//2,:n//2])
+        
+        #M2 C upper right        a00              b01            c01
+        a00b01 = rec_matmul(A[:n//2,:n//2], B[:n//2,n//2:], C[:n//2,n//2:])
+        #M3 C upper right        a01              b11            c01
+        a01b11 = rec_matmul(A[:n//2,n//2:], B[n//2:,n//2:], C[:n//2,n//2:])
+        
+        #M4 C lower left         a10              b00            c10
+        a10b00 = rec_matmul(A[n//2:,:n//2], B[:n//2,:n//2], C[n//2:,:n//2])
+        #M5 C lower left          a11             b10            c10
+        a11b10 = rec_matmul(A[n//2:,n//2:], B[n//2:,:n//2], C[n//2:,:n//2])
+        
+        #M6 C lower right         a10             b01            c11
+        a10b01 = rec_matmul(A[n//2:,:n//2], B[:n//2,n//2:], C[n//2:,n//2:])
+        #M7 C lower right         a11             b11            c11
+        a11b11 = rec_matmul(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:])
+
+    print(C)
+
+
+       
 def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix:
-    """
-    Computes C=AB recursively using a write-through strategy. That
-    is, no intermediate copies are created; the matrix C is
-    initialized as the function is first called, and all updates
-    are done in-place in the recursive calls.
+    
+    # Computes C=AB recursively using a write-through strategy. That
+    # is, no intermediate copies are created; the matrix C is
+    # initialized as the function is first called, and all updates
+    # are done in-place in the recursive calls.
      
-    The parameter m controls such that when the subproblem size
-    satisfies n <= m, * an iterative cubic algorithm is called instead.
-    """
-    raise NotImplementedError('Fill in the implementation')
+    # The parameter m controls such that when the subproblem size
+    # satisfies n <= m, * an iterative cubic algorithm is called instead.
+
+    #initializing C and getting the length of n
+    n = len(A)
+    C = create_empty_C(n)
+    
+    
+    if n <= m:
+        elementary_multiplication_in_place(C,A,B)
+    else:
+        rec_matmul(A,B,C)
 
 
 
@@ -273,14 +321,14 @@ def strassen(A: Matrix, B: Matrix, m: int)->Matrix:
     raise NotImplementedError('Fill in the implementation')
 
 
-M1 = Matrix(4,4, np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4))
-M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4))
-# print(M2)
-# transpose(M2)
-# print(M2)
-# t1 = np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4)
-# t2 = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
-# transpose(M2)
-# print(elementary_multiplication_transposed(M1,M2))
-# print("expected")
-# print(np.matmul(t1,t2))
+# M1 = Matrix(4,4, np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4))
+# M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4))
+# # print(M2)
+# # transpose(M2)
+# # print(M2)
+# # t1 = np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4)
+# # t2 = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
+# # transpose(M2)
+# # print(elementary_multiplication_transposed(M1,M2))
+# # print("expected")
+# # print(np.matmul(t1,t2))
