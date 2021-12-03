@@ -129,7 +129,7 @@ class Matrix:
         else:
             self._arr[key] = value
 
-        
+
             
     def __add__(self, that: Matrix)->Matrix:
         
@@ -223,39 +223,39 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     raise NotImplementedError('Fill in the implementation')
 
 
-def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
-    """
-    Computes C=AB by explicitly writing all intermediate
-    results. That is, we define the following matrices in terms of
-    the operand block matrices:
+#  def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
+#     """
+#     Computes C=AB by explicitly writing all intermediate
+#     results. That is, we define the following matrices in terms of
+#     the operand block matrices:
     
-    P0 = A00
-    P1 = A01
-    P2 = A00
-    P3 = A01
-    P4 = A10
-    P5 = A11
-    P6 = A10
-    P7 = A11
+#     P0 = A00
+#     P1 = A01
+#     P2 = A00
+#     P3 = A01
+#     P4 = A10
+#     P5 = A11
+#     P6 = A10
+#     P7 = A11
     
-    Q0 = B00
-    Q1 = B10
-    Q2 = B01
-    Q3 = B11
-    Q4 = B00
-    Q5 = B10
-    Q6 = B01
-    Q7 = B11
+#     Q0 = B00
+#     Q1 = B10
+#     Q2 = B01
+#     Q3 = B11
+#     Q4 = B00
+#     Q5 = B10
+#     Q6 = B01
+#     Q7 = B11
      
-    Then compute Mi = Pi*Qi by a recursive application of the function
+#     Then compute Mi = Pi*Qi by a recursive application of the function
   
-    Followed by the integration
-    C00 = M0 + M1
-    C01 = M2 + M3
-    C10 = M4 + M5
-    C11 = M6 + M7
-    """
-    raise NotImplementedError('Fill in the implementation')
+#     Followed by the integration
+#     C00 = M0 + M1
+#     C01 = M2 + M3
+#     C10 = M4 + M5
+#     C11 = M6 + M7
+#     """
+#     raise NotImplementedError('Fill in the implementation')
 
 
 def create_empty_C(n):
