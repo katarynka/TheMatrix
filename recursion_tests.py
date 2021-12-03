@@ -1,4 +1,4 @@
-import MatrixTemplate as m
+import matrix_implementations as m
 import numpy as np
 
 
