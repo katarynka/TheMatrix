@@ -205,11 +205,10 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
     n = A.cols()
     C = Matrix(n,n)
 
-    # needs to be changed using add (?) /set and get methods - add has to be implemented
-    # for i in range(n//s):
-    #     for j in range(n//s):
-    #         for k in range(n//s):
-    #             C[i*s:i*s+s,j*s:j*s+s] += elementary_multiplication(A[i*s:i*s+s,k*s:k*s+s],B[k*s:k*s+s,j*s:j*s+s])
+    for i in range(n//s):
+        for j in range(n//s):
+            for k in range(n//s):
+                C[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(A[i*s:i*s+s,k*s:k*s+s],B[k*s:k*s+s,j*s:j*s+s]))
 
     return C
 
