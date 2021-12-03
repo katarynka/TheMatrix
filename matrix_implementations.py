@@ -24,7 +24,7 @@ class Matrix:
         else:
             self._arr = np.zeros((rows,cols), dtype=np.float64)
 
-            
+
 
     def rows(self)->int:
         """
@@ -101,7 +101,7 @@ class Matrix:
         return np.array_equal(self._arr, that._arr)
     
 
-    
+
     def __str__(self)->str:
         """
         Returns a human-readable representation of the matrix
@@ -132,27 +132,30 @@ class Matrix:
         
             
     def __add__(self, that: Matrix)->Matrix:
-        """
-        Regular addition of two matrices. Does not modify the operands.
-        """
-        return self._arr + that._arr
+        
+        #Regular addition of two matrices. Does not modify the operands.
+        m = Matrix(len(self._arr), len(self._arr))
+        m = self._arr + that._arr
+        return m
         
 
-
     def __iadd__(self, that: Matrix)->Matrix:
-        """
-        In-place addition of two matrices, modifies the left-hand side operand.
-        """
+        
+        #In-place addition of two matrices, modifies the left-hand side operand.
+        
         self._arr += that._arr
-        return self._arr
+        return self
 
 
     def __sub__(self, that: Matrix)->Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        return self._arr - that._arr
-
+        
+        #new matrix object that this should equal (can use then)
+        m = Matrix(len(self._arr), len(self._arr))
+        m = self._arr - that._arr
+        return m
 
 
     def __isub__(self, that: Matrix)->Matrix:
@@ -160,7 +163,7 @@ class Matrix:
         Regular subtraction of two matrices. Does not modify the operands.
         """
         self._arr -= that._arr
-        return self._arr
+        return self
 
 
 
@@ -228,7 +231,6 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     that the product of AB is added to matrix C.
     """
     raise NotImplementedError('Fill in the implementation')
-
 
 
 def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
