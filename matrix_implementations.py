@@ -135,23 +135,23 @@ class Matrix:
         """
         Regular addition of two matrices. Does not modify the operands.
         """
-        raise NotImplementedError('Fill in the implementation')
-
+        return self._arr + that._arr
+        
 
 
     def __iadd__(self, that: Matrix)->Matrix:
         """
         In-place addition of two matrices, modifies the left-hand side operand.
         """
-        raise NotImplementedError('Fill in the implementation')
-
+        self._arr += that._arr
+        return self._arr
 
 
     def __sub__(self, that: Matrix)->Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        raise NotImplementedError('Fill in the implementation')
+        return self._arr - that._arr
 
 
 
@@ -159,7 +159,8 @@ class Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        raise NotImplementedError('Fill in the implementation')
+        self._arr -= that._arr
+        return self._arr
 
 
 
