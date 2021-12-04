@@ -1,20 +1,26 @@
+import sys
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+from matrix_implementations import *
 import numpy as np
+
+#Toturial for understanding / clarification
 #https://www.youtube.com/watch?v=OSelhO6Qnlc
 
 
-
-def strassen(A, B):
+def strassen(A: Matrix, B: Matrix) -> Matrix:
     
-    n = len(A)
+    n = A.rows()
     
     if n == 1:
-        C = A*B
+        C = A[0]*B[0]
         return C
     
     else:
         
-        C = np.zeros(A.shape, dtype=A.dtype)
+        #Making a C responding to the current size of A in the current recursion level
+        C = Matrix(A.rows(), A.rows())
         
+        #Cutting our copy of C into four sections
         C00 = C[:n//2,:n//2]
         C01 = C[:n//2,n//2:]
         C10 = C[n//2:,:n//2]
@@ -22,7 +28,7 @@ def strassen(A, B):
         
         
         # P1 = A00 + A11
-        P1 = A[:n//2,:n//2] + A[n//2:,n//2:]
+        P1 = A[:n//2,:n//2].__add__(A[n//2:,n//2:])
         # P2 = A10 + A11
         P2 = A[n//2:,:n//2] + A[n//2:,n//2:]
         # P3 = A00
@@ -37,7 +43,7 @@ def strassen(A, B):
         P7 = A[:n//2,n//2:] - A[n//2:,n//2:]
         
         # Q1 = B00 + B11
-        Q1 = B[:n//2,:n//2] + B[n//2:,n//2:]
+        Q1 = B[:n//2,:n//2].__add__(B[n//2:,n//2:])
         # Q2 = B00
         Q2 = B[:n//2,:n//2]
         # Q3 = B01 - B11 
@@ -68,15 +74,9 @@ def strassen(A, B):
 
         return C
 
-M10 = np.array([  [1,1,1,1],
-                 [2,2,2,2],
-                 [3,3,3,3],
-                 [4,4,4,4]])
+M1 = Matrix(4,4, np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4))
+M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4))
 
-M20 = np.array([[1,1,1,1],
-                 [2,2,2,2],
-                 [3,3,3,3],
-                 [4,4,4,4]])
 
-print(strassen(M10, M20))
+print(strassen(M1, M2))
 

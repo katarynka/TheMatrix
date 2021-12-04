@@ -12,12 +12,10 @@ M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
 def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
             
     n = A.rows()
-    print(n)
     
     if A.rows().__eq__(1):
-        print(A)
-        print(B)
-        C = A*B       
+    
+        C = A[0]*B[0]
         return C
     
     else:
@@ -58,50 +56,9 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
         return C
 
 
-recursive_multiplication_copying(M1, M2)
+print(recursive_multiplication_copying(M1, M2))
 
 
 
 
 
-
-
-
-
-
-
-
-
-# def recursive_multiplication_copying(A: Matrix, B: Matrix) -> Matrix:
-#     """
-#     Computes C=AB by explicitly writing all intermediate
-#     results. That is, we define the following matrices in terms of
-#     the operand block matrices:
-    
-#     P0 = A00
-#     P1 = A01
-#     P2 = A00
-#     P3 = A01
-#     P4 = A10
-#     P5 = A11
-#     P6 = A10
-#     P7 = A11
-    
-#     Q0 = B00
-#     Q1 = B10
-#     Q2 = B01
-#     Q3 = B11
-#     Q4 = B00
-#     Q5 = B10
-#     Q6 = B01
-#     Q7 = B11
-     
-#     Then compute Mi = Pi*Qi by a recursive application of the function
-  
-#     Followed by the integration
-#     C00 = M0 + M1
-#     C01 = M2 + M3
-#     C10 = M4 + M5
-#     C11 = M6 + M7
-#     """
-#     raise NotImplementedError('Fill in the implementation')
