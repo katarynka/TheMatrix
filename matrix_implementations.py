@@ -134,8 +134,8 @@ class Matrix:
     def __add__(self, that: Matrix)->Matrix:
         
         #Regular addition of two matrices. Does not modify the operands.
-        m = Matrix(len(self._arr), len(self._arr))
-        m = self._arr + that._arr
+        m = Matrix(self.rows(), self.rows())
+        m: Matrix = self._arr + that._arr
         return m
         
 
@@ -153,7 +153,7 @@ class Matrix:
         """
         #new matrix object that this should equal (we make a new instance of a matrix)
         m = Matrix(len(self._arr), len(self._arr))
-        m = self._arr - that._arr
+        m: Matrix = self._arr - that._arr
         return m
 
 
