@@ -1,4 +1,4 @@
-# import matplotlib.pyplot as plt # type: ignore
+# import matplotlib.pyplot as plt 
 import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
 import numpy as np
@@ -14,7 +14,7 @@ from matrix_implementations import *
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
 
-def benchmark(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[Matrix], N: int)->np.ndarray:
+def benchmark_1(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[Matrix], N: int)->np.ndarray:
     m: int = len(args1)
     M: np.ndarray = np.zeros ((m,N)) # measurements
     for i in range(len(args1)):
@@ -23,6 +23,18 @@ def benchmark(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List
             B = args2[i]
             C = args3[i]
             M[i,j] = measure(lambda: f(A,B,C))
+    means = np.mean(M,axis =1).reshape(m,1)
+    stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
+    return np.hstack ([means , stdevs ])
+
+def benchmark_2(f: FunType , args1: List[Matrix], args2: List[Matrix], N: int)->np.ndarray:
+    m: int = len(args1)
+    M: np.ndarray = np.zeros ((m,N)) # measurements
+    for i in range(len(args1)):
+        for j in range(N):
+            A = args1[i]
+            B = args2[i]
+            M[i,j] = measure(lambda: f(A,B))
     means = np.mean(M,axis =1).reshape(m,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
     return np.hstack ([means , stdevs ])
@@ -65,15 +77,45 @@ res_classic1: np.ndarray
 res_dual1: np.ndarray
 max_i: int = 11
 N: int = 10
-ns = [int (30*1.41**i) for i in range(max_i )]
-n = 2
+ns = [2,4,8]
 
-for i in range(6):
-    print(n)
-    args1 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for l in range(5)]
-    args2 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for l in range(5)]
-    args3 = [Matrix(n,n) for l in range(5)]
 
-    res_elementary = benchmark(rec_matmul_write_through, args1 , args2, args3, N)
-    print(res_elementary)
-    n = n*2
+args1 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
+args2 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
+args3 = [Matrix(n,n) for n in ns]
+
+res_elementary = benchmark_2(elementary_multiplication, args1 , args2, N)
+print(res_elementary)
+
+
+
+args1 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
+args2 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
+args3 = [Matrix(n,n) for n in ns]
+
+res_recursive_write_through = benchmark_1(rec_matmul_write_through, args1 , args2, args3, N)
+print(res_recursive_write_through)
+
+
+def write_csv(ns: List[int], res: np.ndarray ,
+            filename: str):
+    with open(filename ,'w') as f:
+        writer = csv.writer(f)
+        for i in range(len(ns)):
+            writer.writerow ([ns[i]] + res[i,:]. tolist ())
+
+write_csv(ns, res_elementary, "elementary.csv")
+write_csv(ns, res_recursive_write_through, "recursive_write_through.csv")
+
+
+# fig = plt.figure ()
+# ax = fig.gca()
+# ax.errorbar(ns, res_elementary [:,0], res_elementary [:,1],
+# capsize = 3.0, marker = 'o')
+# ax.errorbar(ns, res_recursive_write_through [:,0], res_recursive_write_through [:,1],
+# capsize = 3.0, marker = 'o')
+# ax.set_xlabel('Value of n')
+# ax.set_ylabel('Time (s)')
+# ax.set_yscale('log')
+# ax.legend (['Elementary multiplication ', 'Recursive write through multiplication '])
+# plt.savefig('elementary_vs_write_through.pdf')
