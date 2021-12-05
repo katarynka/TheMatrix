@@ -6,7 +6,9 @@ from numpy.core.numeric import argwhere
 from measurement import *
 import random
 import sys
-sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+
 from matrix_implementations import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
