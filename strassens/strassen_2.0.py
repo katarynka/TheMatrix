@@ -82,3 +82,5 @@ M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
 
 print(strassen(M1, M2))
 
+#assert_all_close()
+#5931641.60152

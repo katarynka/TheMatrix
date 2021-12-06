@@ -98,13 +98,13 @@ ns = [2,4,8,16,32,64,128,256,512]
 
 
 
-tiled_N = 1024
-s_list = [2,4,8,16,32,64,128,256,512]
-args1 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
-args2 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
+# tiled_N = 1024
+# s_list = [2,4,8,16,32,64,128,256,512]
+# args1 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
+# args2 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
 
-res_tiled = benchmark_tiled(tiled_multiplication, args1 , args2, s_list, N)
-print(res_tiled)
+# res_tiled = benchmark_tiled(tiled_multiplication, args1 , args2, s_list, N)
+# print(res_tiled)
 
 
 def write_csv(ns: List[int], res: np.ndarray ,
@@ -114,10 +114,6 @@ def write_csv(ns: List[int], res: np.ndarray ,
         for i in range(len(ns)):
             writer.writerow ([ns[i]] + res[i,:]. tolist ())
 
-write_csv(ns, res_elementary, "elementary.csv")
-write_csv(ns, res_recursive_write_through, "recursive_write_through.csv")
-
-
 def write_csv_tiled(ns: List[int], res: np.ndarray ,
             filename: str):
     with open(filename ,'w') as f:
@@ -125,7 +121,7 @@ def write_csv_tiled(ns: List[int], res: np.ndarray ,
         for i in range(len(s_list)):
             writer.writerow ([s_list[i]] + res[i,:]. tolist ())
 
-write_csv_tiled(ns, res_tiled, "tiled.csv")
+#write_csv_tiled(ns, res_tiled, "tiled.csv")
 
 # fig = plt.figure ()
 # ax = fig.gca()

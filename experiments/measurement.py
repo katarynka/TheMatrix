@@ -15,13 +15,25 @@ def measure(f: Callable [[],Any])->float:
     return end - start
 
 
+def get_input_range(n):
+    lower_bound = 0
+    upper_bound = round(np.sqrt(2**(53)/n))
+    input_range = [lower_bound, upper_bound]
+    return input_range
+
+print(get_input_range(256))
+
 def generate_input(n: int) -> List[int] :
     list= []
+    input_range = get_input_range(n)
     for i in range(0,n*n):
         random.seed(i+3)
-        l = random.randint(1,3000)
+        l = random.randint(input_range[0],int(input_range[1]))
         list.append(l)
     return list
+
+generate_input(256)
+print()
 
 # N = 256
 # s = 128
