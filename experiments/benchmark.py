@@ -116,7 +116,7 @@ args3 = [2,4,8,16,32,64,128,256,512]
 args1 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for n in args3]
 args2 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for n in args3]
 
-res_tiled = benchmark_1(rec_matmul_write_through, args1 , args2, args3, N)
+res_tiled = benchmark_3(rec_matmul_write_through, args1 , args2, args3, N)
 print(res_tiled)
 
 
