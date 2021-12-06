@@ -77,7 +77,7 @@ res_classic1: np.ndarray
 res_dual1: np.ndarray
 max_i: int = 11
 N: int = 10
-ns = [2,4,8]
+ns = [2,4,8,16,32,64,128,256,512]
 
 
 args1 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
