@@ -138,13 +138,12 @@ class Matrix:
         if isinstance(self, Matrix):
             m = Matrix(self.rows(), self.rows(), np.add(self._arr, that._arr))
             return m
-        else: 
+        else: #If not a matrix but the sublevel where we just add two floats together
             return self + that    
 
     def __iadd__(self, that: Matrix)->Matrix:
-        
         #In-place addition of two matrices, modifies the left-hand side operand.
-        if isinstance(self, Matrix):
+        if isinstance(that, Matrix):
             self._arr += that._arr
             return self
         else:
@@ -156,11 +155,11 @@ class Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        if isinstance(self, Matrix):
+        if isinstance(that, Matrix):
             #new matrix object that this should equal (we make a new instance of a matrix)
             m = Matrix(len(self._arr), len(self._arr), np.subtract(self._arr, that._arr))
             return m
-        else:
+        else: #If not a matrix but the sublevel where we just subtract two floats together
             return self - that
 
 
@@ -168,12 +167,9 @@ class Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        if isinstance(self, Matrix):
-            self._arr -= that._arr
-            return self
-        else:
-            self._arr[0] -= that
-            return self
+        self._arr -= that._arr
+        return self
+    
 
 
 def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
