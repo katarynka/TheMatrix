@@ -2,6 +2,7 @@
 from __future__ import annotations
 from typing import List, Union, Tuple, overload
 import numpy as np
+from numpy.lib.arraysetops import isin
 
 class Matrix:
     """
@@ -134,36 +135,45 @@ class Matrix:
     def __add__(self, that: Matrix)->Matrix:
         
         #Regular addition of two matrices. Does not modify the operands.
-        m = Matrix(self.rows(), self.rows())
-        m: Matrix = self._arr + that._arr
-        return m
-        
+        if isinstance(self, Matrix):
+            m = Matrix(self.rows(), self.rows(), np.add(self._arr, that._arr))
+            return m
+        else: 
+            return self + that    
 
     def __iadd__(self, that: Matrix)->Matrix:
         
         #In-place addition of two matrices, modifies the left-hand side operand.
-        
-        self._arr += that._arr
-        return self
+        if isinstance(self, Matrix):
+            self._arr += that._arr
+            return self
+        else:
+            self._arr[0] += that
+            return self 
 
 
     def __sub__(self, that: Matrix)->Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        #new matrix object that this should equal (we make a new instance of a matrix)
-        m = Matrix(len(self._arr), len(self._arr))
-        m: Matrix = self._arr - that._arr
-        return m
+        if isinstance(self, Matrix):
+            #new matrix object that this should equal (we make a new instance of a matrix)
+            m = Matrix(len(self._arr), len(self._arr), np.subtract(self._arr, that._arr))
+            return m
+        else:
+            return self - that
 
 
     def __isub__(self, that: Matrix)->Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        self._arr -= that._arr
-        return self
-
+        if isinstance(self, Matrix):
+            self._arr -= that._arr
+            return self
+        else:
+            self._arr[0] -= that
+            return self
 
 
 def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:

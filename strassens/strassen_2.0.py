@@ -1,5 +1,6 @@
 import sys
-sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix/")
 from matrix_implementations import *
 import numpy as np
 
@@ -28,34 +29,34 @@ def strassen(A: Matrix, B: Matrix) -> Matrix:
         
         
         # P1 = A00 + A11
-        P1: Matrix = A[:n//2,:n//2].__add__(A[n//2:,n//2:])
+        P1 = A[:n//2,:n//2] + A[n//2:,n//2:]
         # P2 = A10 + A11
-        P2 = A[n//2:,:n//2].__add__(A[n//2:,n//2:])
+        P2 = A[n//2:,:n//2] + A[n//2:,n//2:]
         # P3 = A00
         P3 = A[:n//2,:n//2]
         # P4 = A11
         P4 = A[n//2:,n//2:]
         # P5 = A00 + A01
-        P5 = A[:n//2,:n//2].__add__(A[:n//2,n//2:])
+        P5 = A[:n//2,:n//2] + A[:n//2,n//2:]
         # P6 = A10 - A00
-        P6 = A[n//2:,:n//2].__sub__(A[:n//2,:n//2])
+        P6 = A[n//2:,:n//2] - A[:n//2,:n//2]
         # P7 = A01 - A11
-        P7 = A[:n//2,n//2:].__sub__(A[n//2:,n//2:])
+        P7 = A[:n//2,n//2:] - A[n//2:,n//2:]
         
         # Q1 = B00 + B11
-        Q1 = B[:n//2,:n//2].__add__(B[n//2:,n//2:])
+        Q1 = B[:n//2,:n//2] + B[n//2:,n//2:]
         # Q2 = B00
         Q2 = B[:n//2,:n//2]
         # Q3 = B01 - B11 
-        Q3 = B[:n//2,n//2:].__sub__(B[n//2:,n//2:])
+        Q3 = B[:n//2,n//2:] - B[n//2:,n//2:]
         # Q4 = B10 - B00
-        Q4 = B[n//2:,:n//2].__sub__(B[:n//2,:n//2])
+        Q4 = B[n//2:,:n//2] - B[:n//2,:n//2]
         # Q5 = B11
         Q5 = B[n//2:,n//2:]
         # Q6 = B00 + B01
-        Q6 = B[:n//2,:n//2].__add__(B[:n//2,n//2:])
+        Q6 = B[:n//2,:n//2] + B[:n//2,n//2:]
         # Q7 = B10 + B11
-        Q7 = B[n//2:,:n//2].__add__(B[n//2:,n//2:])
+        Q7 = B[n//2:,:n//2] + B[n//2:,n//2:]
             
         # Then compute Mi = Pi*Qi by a recursive application of the function
         M1 = strassen(P1,Q1)
@@ -67,6 +68,7 @@ def strassen(A: Matrix, B: Matrix) -> Matrix:
         M7 = strassen(P7,Q7)
         
         # Following the recipe from the slides:
+        
         C00[:] = M1 + M4 - M5 + M7
         C01[:] = M3 + M5
         C10[:] = M2 + M4
