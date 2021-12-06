@@ -6,7 +6,9 @@ from numpy.core.numeric import argwhere
 from measurement import *
 import random
 import sys
-sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+
 from matrix_implementations import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
@@ -91,7 +93,7 @@ def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
 
 ns: List[int]
 N: int = 10
-ns = [2,4,8, 16, 32, 64, 128, 256, 512]
+ns = [2,4,8,16,32,64,128,256,512]
 
 
 args1 = [Matrix(n,n, np.array(generate_input(n)).reshape(n,n))for n in ns]
