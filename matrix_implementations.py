@@ -208,7 +208,29 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
     for i in range(n//s):
         for j in range(n//s):
             for k in range(n//s):
-                C[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(A[i*s:i*s+s,k*s:k*s+s],B[k*s:k*s+s,j*s:j*s+s]))
+                subA = A[i*s:i*s+s,k*s:k*s+s]
+                subB = B[k*s:k*s+s,j*s:j*s+s]
+                C[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(subA,subB))
+
+    return C
+
+def tiled_multiplication2(A: Matrix, B: Matrix, s: int)->Matrix:                
+    n = A.cols()
+    C = Matrix(n,n)
+
+    for i in range(n//s):
+        for j in range(n//s):
+            for k in range(n//s):
+                subA = A[i*s:i*s+s,k*s:k*s+s]
+                subB = B[k*s:k*s+s,j*s:j*s+s]
+                z = subA.cols()
+                subC = Matrix(z,z)
+                for l in range(z):
+                    for m in range(z):
+                        for o in range(z):
+                            temp = subC.__getitem__((l,m)) + (subA.__getitem__((l,o))*subB.__getitem__((o,m)))
+                            subC.__setitem__((l,m),temp)
+                C[i*s:i*s+s,j*s:j*s+s].__iadd__(subC)
 
     return C
 
