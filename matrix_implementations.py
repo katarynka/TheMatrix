@@ -201,7 +201,7 @@ def elementary_multiplication_transposed(A: Matrix, B: Matrix)->Matrix:
     return C
 
 
-def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:                
+def tiled_multiplication_fun_call(A: Matrix, B: Matrix, s: int)->Matrix:                
     n = A.cols()
     C = Matrix(n,n)
 
@@ -214,7 +214,7 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
 
     return C
 
-def tiled_multiplication2(A: Matrix, B: Matrix, s: int)->Matrix:                
+def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:                
     n = A.cols()
     C = Matrix(n,n)
 
