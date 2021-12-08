@@ -262,7 +262,7 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     for i in range(n):
         for k in range(n):
             for j in range(n):
-                C[i,j] += A[i,k] * B [k,j]
+                C[i,j] += A[i,k] * B[k,j]
     return C
     
 
