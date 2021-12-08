@@ -4,8 +4,8 @@ import numpy as np
 from typing import List
 import random
 import sys
-#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
-sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+# sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
 from matrix_implementations import *
 
 def measure(f: Callable [[],Any])->float:
@@ -28,9 +28,8 @@ def generate_input(n: int) -> List[int] :
     for i in range(0,n*n):
         random.seed(i+3)
         l = random.randint(input_range[0],int(input_range[1]))
-        list.append(l)
+        list.append(float(l))
     return Matrix(n,n,np.array(list).reshape(n,n))
-
 
 
 
