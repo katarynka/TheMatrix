@@ -184,8 +184,8 @@ def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
     for i in range(n):
         for j in range(n):
             for k in range(n):
-                temp = C.__getitem__((i,j)) + A.__getitem__((i,k))*B.__getitem__((k,j))
-                C.__setitem__((i,j),temp)
+                temp = C[i,j] + A[i,k]*B[k,j]
+                C[i,j] = temp
     return C
 
 
@@ -195,9 +195,9 @@ def transpose(A: Matrix)->None:
     for i in range(0,a):
         for j in range(b,a):
             if(i != j):
-                t = A.__getitem__((i,j))
-                A.__setitem__((i,j),A.__getitem__((j,i)))
-                A.__setitem__((j,i),t)
+                t = A[i,j]
+                A[i,j] = A[j,i]
+                A[j,i] = t
         b += 1
 
 
@@ -208,8 +208,8 @@ def elementary_multiplication_transposed(A: Matrix, B: Matrix)->Matrix:
     for i in range(n):
         for j in range(n):
             for k in range(n):
-                temp = C.__getitem__((i,j)) + (A.__getitem__((i,k))*B.__getitem__((j,k)))
-                C.__setitem__((i,j),temp)
+                temp = C[i,j] + A[i,k]*B[j,k]
+                C[i,j] = temp
     return C
 
 
@@ -222,7 +222,7 @@ def tiled_multiplication_fun_call(A: Matrix, B: Matrix, s: int)->Matrix:
             for k in range(n//s):
                 subA = A[i*s:i*s+s,k*s:k*s+s]
                 subB = B[k*s:k*s+s,j*s:j*s+s]
-                C[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(subA,subB))
+                C[i*s:i*s+s,j*s:j*s+s] += elementary_multiplication(subA,subB)
 
     return C
 

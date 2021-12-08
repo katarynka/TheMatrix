@@ -43,20 +43,6 @@ def benchmark_elementary(f: FunType , args1: List[Matrix], args2: List[Matrix], 
     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
     return np.hstack ([means , stdevs ])
 
-def benchmark_tiled(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[int], N: int)->np.ndarray:
-    m: int = len(args1)
-    M: np.ndarray = np.zeros ((m,N)) # measurements
-    for i in range(len(args1)):
-        for j in range(N):
-            A = args1[i]
-            B = args2[i]
-            s = args3[i]
-            print("tiled rows") 
-            print(A.rows())
-            M[i,j] = measure(lambda: f(A,B,s))
-    means = np.mean(M,axis =1).reshape(m,1)
-    stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
-    return np.hstack ([means , stdevs ])
 
 
 ns: List[int]
@@ -67,7 +53,7 @@ ns = [2,4,8,16,32,64,128,256,512,1024]
 
 
 # tiled_N = 1024
-# s_list = [2,4,8,16,32,64,128,256,512]
+s_list = [2,4,8,16,32,64,128,256,512]
 # args1 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
 # args2 = [Matrix(tiled_N,tiled_N, np.array(generate_input(tiled_N)).reshape(tiled_N,tiled_N)) for s in s_list]
 
