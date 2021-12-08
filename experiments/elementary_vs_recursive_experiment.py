@@ -1,10 +1,11 @@
 import sys
 #sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
 sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
-
 from matrix_implementations import *
 from benchmark import *
 from measurement import *
+
+ns = [1024]
 
 def benchmark(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[Matrix], N: int)->np.ndarray:
     m: int = len(args1)
@@ -14,6 +15,8 @@ def benchmark(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List
             A = args1[i]
             B = args2[i]
             C = args3[i]
+            print("elementary rows") 
+            print(A.rows())
             M[i,j] = measure(lambda: f(A,B,C))
     means = np.mean(M,axis =1).reshape(m,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
@@ -36,6 +39,6 @@ print(res_elementary)
 # print(res_recursive_write_through)
 
 
-write_csv(ns, res_elementary, "elementary_full.csv")
+write_csv(ns, res_elementary, "elementary_full_optimized.csv")
 #write_csv(ns, res_recursive_write_through, "recursive_write_through.csv")
 
