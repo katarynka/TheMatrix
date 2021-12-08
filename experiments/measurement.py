@@ -15,31 +15,36 @@ def measure(f: Callable [[],Any])->float:
     return end - start
 
 
+def get_input_range(n):
+    lower_bound = 0
+    upper_bound = round(np.sqrt(2**(53)/n))
+    input_range = [lower_bound, upper_bound]
+    return input_range
+
+
 def generate_input(n: int) -> List[int] :
     list= []
+    input_range = get_input_range(n)
     for i in range(0,n*n):
         random.seed(i+3)
-        l = random.randint(1,3000)
+        l = random.randint(input_range[0],int(input_range[1]))
         list.append(l)
-    
     return Matrix(n,n,np.array(list).reshape(n,n))
 
-N = 256
-s = 128
-print("N ") 
-print(N)
-print("s ")
-print(s)
-l1 = generate_input(N)
-l2 = generate_input(N)
-A = Matrix(N,N,np.array(l1).reshape(N,N))
-B = Matrix(N,N,np.array(l2).reshape(N,N))
-C = Matrix(N,N,np.array(generate_input(N)).reshape(N,N))
-D = Matrix(N,N,np.array(generate_input(N)).reshape(N,N))
-t5 = measure(lambda: tiled_multiplication_fun_call(A,B,s))
-t6 = measure(lambda: tiled_multiplication(C,D,s))
 
-print("without function call")
-print(t6)
-print("with function call")
-print(t5)
+
+
+# N = 256
+# s = 128
+# print("N ") 
+# print(N)
+# print("s ")
+# print(s)
+# l1 = generate_input(N)
+# l2 = generate_input(N)
+# A = Matrix(N,N,np.array(l1).reshape(N,N))
+# B = Matrix(N,N,np.array(l2).reshape(N,N))
+# C = Matrix(N,N,np.array(generate_input(N)).reshape(N,N))
+# D = Matrix(N,N,np.array(generate_input(N)).reshape(N,N))
+# t5 = measure(lambda: tiled_multiplication(A,B,s))
+# t6 = measure(lambda: tiled_multiplication(C,D,s))
