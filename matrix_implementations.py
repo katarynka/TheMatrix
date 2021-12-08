@@ -256,12 +256,13 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     """    
     n = A.cols()
 
+
+    #This is the optimized algorithm using the i, k, j structure
+    
     for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                temp = C.__getitem__((i,j)) + A.__getitem__((i,k))*B.__getitem__((k,j))
-                C.__setitem__((i,j),temp)
-                #C[i,j] += A[i,k] + B [k,j]
+        for k in range(n):
+            for j in range(n):
+                C[i,j] += A[i,k] * B [k,j]
     return C
     
 
