@@ -92,8 +92,8 @@ def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
 
 
 ns: List[int]
-N: int = 3
-ns = [2,4,8,16,32,64,128,256,512]
+N: int = 1
+ns = [2,4,8,16,32,64,128,256,512,1024]
 
 
 

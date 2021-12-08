@@ -10,6 +10,12 @@ class Matrix:
     floating-point elements that uses Numpy as backend.
     """
     _arr: np.ndarray 
+    
+    _rows: int
+    _cols: int
+    _data: List[float]
+    _first_idx: int
+    _stride: int
 
     def __init__(self, rows: int = 0, cols: int = 0,
                      data: np.ndarray = None):

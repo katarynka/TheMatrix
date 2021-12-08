@@ -21,7 +21,6 @@ def get_input_range(n):
     input_range = [lower_bound, upper_bound]
     return input_range
 
-print(get_input_range(256))
 
 def generate_input(n: int) -> List[int] :
     list= []
@@ -30,10 +29,10 @@ def generate_input(n: int) -> List[int] :
         random.seed(i+3)
         l = random.randint(input_range[0],int(input_range[1]))
         list.append(l)
-    return list
+    return Matrix(n,n,np.array(list).reshape(n,n))
 
-generate_input(256)
-print()
+
+
 
 # N = 256
 # s = 128
