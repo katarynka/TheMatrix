@@ -1,4 +1,7 @@
-import matrix_implementations as m
+import sys
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+from matrix_implementations import *
 import numpy as np
 
 
@@ -23,9 +26,14 @@ import numpy as np
 # print("#1")
 # print(np.add(test11,test12))
 
-M1 = m.Matrix(4,4, np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4))
-M2 = m.Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4))
+M1 = Matrix(4,4, np.array([-5, 8, -7, -10, -1, -1, 3, -5, -2, -9, 5, -10, 6, -2, 2, -10]).reshape(4,4))
+M2 = Matrix(4,4, np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4))
+C = Matrix(M1.rows(), M1.rows())
 
-m.transpose(M2)
 
-print(m.elementary_multiplication_transposed(M1,M2))
+transpose(M2)
+
+print(elementary_multiplication(M1,M2))
+
+
+print(elementary_multiplication_in_place(M1,M2,C))

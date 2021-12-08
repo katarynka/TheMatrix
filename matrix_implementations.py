@@ -253,8 +253,17 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
     An auxiliary function that computes elementary matrix
     multiplication in place, that is, the operation is C += AB such
     that the product of AB is added to matrix C.
-    """
-    raise NotImplementedError('Fill in the implementation')
+    """    
+    n = A.cols()
+
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                temp = C.__getitem__((i,j)) + A.__getitem__((i,k))*B.__getitem__((k,j))
+                C.__setitem__((i,j),temp)
+                #C[i,j] += A[i,k] + B [k,j]
+    return C
+    
 
 
 #  def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
@@ -292,45 +301,38 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
 #     raise NotImplementedError('Fill in the implementation')
 
 
-def create_empty_C(n):
-    return np.array([[0]*n]*n)
-
-def rec_matmul_write_through(A,B,C):
-            
-    n = len(A)
+def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
+    
+    n = A.rows()    
     
     if n == 1:
-        print(' '.join(map(str,A.flatten())))
-        print(' '.join(map(str,B.flatten())))
-        print(' '.join(map(str,(A*B).flatten())))
-        C += A*B
+        C[0] += A[0]*B[0]
         return C
     
     else:
-        #M0 C upper left        a00               b00            c00
+        #M0 C upper left                        a00             b00             c00
         a00b00 = rec_matmul_write_through(A[:n//2,:n//2], B[:n//2,:n//2], C[:n//2,:n//2])
-        #M1 C upper left        a01               b10            c00
+        #M1 C upper left                        a01             b10             c00
         a01b10 = rec_matmul_write_through(A[:n//2,n//2:], B[n//2:,:n//2], C[:n//2,:n//2])
         
-        #M2 C upper right        a00              b01            c01
+        #M2 C upper right                       a00             b01             c01
         a00b01 = rec_matmul_write_through(A[:n//2,:n//2], B[:n//2,n//2:], C[:n//2,n//2:])
-        #M3 C upper right        a01              b11            c01
+        #M3 C upper right                       a01             b11             c01
         a01b11 = rec_matmul_write_through(A[:n//2,n//2:], B[n//2:,n//2:], C[:n//2,n//2:])
         
-        #M4 C lower left         a10              b00            c10
+        #M4 C lower left                        a10             b00             c10
         a10b00 = rec_matmul_write_through(A[n//2:,:n//2], B[:n//2,:n//2], C[n//2:,:n//2])
-        #M5 C lower left          a11             b10            c10
+        #M5 C lower left                        a11             b10             c10
         a11b10 = rec_matmul_write_through(A[n//2:,n//2:], B[n//2:,:n//2], C[n//2:,:n//2])
         
-        #M6 C lower right         a10             b01            c11
+        #M6 C lower right                       a10             b01             c11
         a10b01 = rec_matmul_write_through(A[n//2:,:n//2], B[:n//2,n//2:], C[n//2:,n//2:])
-        #M7 C lower right         a11             b11            c11
+        #M7 C lower right                       a11             b11             c11
         a11b11 = rec_matmul_write_through(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:])
 
-    [print(i, end=" ") for i in C.flatten()]
-    print()
+        return C
+    
 
-       
 def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix:
     
     #Instructions:
@@ -343,13 +345,13 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix
         # satisfies n <= m, * an iterative cubic algorithm is called instead.
 
     #initializing C and getting the length of n
-    n = len(A)
-    C = create_empty_C(n)
+    n = A.rows()
+    C = Matrix(A.rows(), A.rows())
     
     if n <= m:
-        elementary_multiplication_in_place(A,B,C)
+        return elementary_multiplication_in_place(A,B,C)
     else:
-        rec_matmul_write_through(A,B,C)
+        return rec_matmul_write_through(A,B,C)
 
 
 
