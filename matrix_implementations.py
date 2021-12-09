@@ -248,16 +248,20 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
 
 
 
-def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)->None:
+def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix:
+    
+    #Description
+
     """
     An auxiliary function that computes elementary matrix
     multiplication in place, that is, the operation is C += AB such
     that the product of AB is added to matrix C.
-    """    
+    """
+
     n = A.cols()
 
-
-    #This is the optimized algorithm using the i, k, j structure
+    #This is the optimized algorithm using the i, k, j structure --> however the gain described
+    # and seen when we run it in Java, we do not get in python.
     
     for i in range(n):
         for k in range(n):

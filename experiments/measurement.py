@@ -1,11 +1,10 @@
-from typing import Callable , Any
+from typing import List, Dict , Callable , Any
 import time
 import numpy as np
-from typing import List
 import random
 import sys
-sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
-# sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
 from matrix_implementations import *
 
 def measure(f: Callable [[],Any])->float:

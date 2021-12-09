@@ -5,7 +5,7 @@ from matrix_implementations import *
 from benchmark import *
 from measurement import *
 
-ns = [1024]
+ns = [2,4,8,16,32,64,128,256]
 
 def benchmark(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[Matrix], N: int)->np.ndarray:
     m: int = len(args1)
