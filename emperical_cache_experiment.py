@@ -18,6 +18,8 @@ def cache_test(lst):
         dummy_variable += lst[index]
     return dummy_variable
 
+# random generation
+
 def measure_time(f: Callable [[],Any])->float:
     start: float = time.time()
     f()

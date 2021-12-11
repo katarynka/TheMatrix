@@ -188,6 +188,14 @@ def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
                 C[i,j] = temp
     return C
 
+def elementary_multiplication2(A: Matrix, B: Matrix)->Matrix:
+    n = A.cols()
+    C = Matrix(n,n)
+    for i in range(n):
+        for j in range(n):
+            np.sum(A[i,:]*B[:,j])
+    return C
+
 
 def transpose(A: Matrix)->None:
     a: int = A.cols()
