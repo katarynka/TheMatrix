@@ -8,7 +8,7 @@ import numpy as np
 #https://www.youtube.com/watch?v=OSelhO6Qnlc
 
 
-def strassen(A: Matrix, B: Matrix) -> Matrix:
+def strassen_fun(A: Matrix, B: Matrix) -> Matrix:
     
     n = A.rows()
     
@@ -59,13 +59,13 @@ def strassen(A: Matrix, B: Matrix) -> Matrix:
         Q7 = B[n//2:,:n//2] + B[n//2:,n//2:]
             
         # Then compute Mi = Pi*Qi by a recursive application of the function
-        M1 = strassen(P1,Q1)
-        M2 = strassen(P2,Q2)
-        M3 = strassen(P3,Q3)
-        M4 = strassen(P4,Q4)
-        M5 = strassen(P5,Q5)
-        M6 = strassen(P6,Q6)
-        M7 = strassen(P7,Q7)
+        M1 = strassen_fun(P1,Q1)
+        M2 = strassen_fun(P2,Q2)
+        M3 = strassen_fun(P3,Q3)
+        M4 = strassen_fun(P4,Q4)
+        M5 = strassen_fun(P5,Q5)
+        M6 = strassen_fun(P6,Q6)
+        M7 = strassen_fun(P7,Q7)
         
         # Following the recipe from the slides:
         

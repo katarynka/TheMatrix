@@ -37,7 +37,7 @@ args2 = [generate_input(n) for s in m_list]
 res_write_through = benchmark_recursive(recursive_multiplication_write_through, args1 , args2, m_list, N)
 print(res_write_through)
 
-res_strassen = benchmark_recursive(strassen, args1 , args2, m_list, N)
+res_strassen = benchmark_recursive(strassen_fun, args1 , args2, m_list, N)
 print(res_strassen)
 
 
