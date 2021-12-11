@@ -278,40 +278,57 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix
     return C
 
 
+def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
+            
+    n = A.rows()
+    
+    if A.rows().__eq__(1):
+    
+        C = A[0]*B[0]
+        return C
+    
+    else:
+        C = Matrix(A.rows(), A.cols())
+        
+        C00 = C[:n//2,:n//2]
+        C01 = C[:n//2,n//2:]
+        C10 = C[n//2:,:n//2]
+        C11 = C[n//2:,n//2:]
 
-#  def recursive_multiplication_copying(A: Matrix, B: Matrix)->Matrix:
-#     """
-#     Computes C=AB by explicitly writing all intermediate
-#     results. That is, we define the following matrices in terms of
-#     the operand block matrices:
-    
-#     P0 = A00
-#     P1 = A01
-#     P2 = A00
-#     P3 = A01
-#     P4 = A10
-#     P5 = A11
-#     P6 = A10
-#     P7 = A11
-    
-#     Q0 = B00
-#     Q1 = B10
-#     Q2 = B01
-#     Q3 = B11
-#     Q4 = B00
-#     Q5 = B10
-#     Q6 = B01
-#     Q7 = B11
-     
-#     Then compute Mi = Pi*Qi by a recursive application of the function
-  
-#     Followed by the integration
-#     C00 = M0 + M1
-#     C01 = M2 + M3
-#     C10 = M4 + M5
-#     C11 = M6 + M7
-#     """
-#     raise NotImplementedError('Fill in the implementation')
+
+        P0 = A[:n//2,:n//2]
+        P1 = A[:n//2,n//2:]
+        P2 = A[:n//2,:n//2]
+        P3 = A[:n//2,n//2:]
+        P4 = A[n//2:,:n//2]
+        P5 = A[n//2:,n//2:]
+        P6 = A[n//2:,:n//2]
+        P7 = A[n//2:,n//2:]
+        
+        Q0 = B[:n//2,:n//2]
+        Q1 = B[n//2:,:n//2]
+        Q2 = B[:n//2,n//2:]
+        Q3 = B[n//2:,n//2:]
+        Q4 = B[:n//2,:n//2]
+        Q5 = B[n//2:,:n//2]
+        Q6 = B[:n//2,n//2:]
+        Q7 = B[n//2:,n//2:]
+
+        M0 = recursive_multiplication_copying(P0, Q0)
+        M1 = recursive_multiplication_copying(P1, Q1)
+        M2 = recursive_multiplication_copying(P2, Q2)
+        M3 = recursive_multiplication_copying(P3, Q3)
+        M4 = recursive_multiplication_copying(P4, Q4)
+        M5 = recursive_multiplication_copying(P5, Q5)
+        M6 = recursive_multiplication_copying(P6, Q6)
+        M7 = recursive_multiplication_copying(P7, Q7)
+
+        C00 += M0 + M1
+        C01 += M2 + M3
+        C10 += M4 + M5
+        C11 += M6 + M7
+
+        return C
 
 
 def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
