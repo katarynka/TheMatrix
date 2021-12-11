@@ -331,7 +331,7 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
         return C
 
 
-def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
+def recursive_multipliction_write_through_fun(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
     
     n = A.rows()    
     
@@ -341,24 +341,24 @@ def rec_matmul_write_through(A: Matrix, B: Matrix, C: Matrix) -> Matrix:
     
     else:
         #M0 C upper left                        a00             b00             c00
-        a00b00 = rec_matmul_write_through(A[:n//2,:n//2], B[:n//2,:n//2], C[:n//2,:n//2])
+        a00b00 = recursive_multipliction_write_through_fun(A[:n//2,:n//2], B[:n//2,:n//2], C[:n//2,:n//2])
         #M1 C upper left                        a01             b10             c00
-        a01b10 = rec_matmul_write_through(A[:n//2,n//2:], B[n//2:,:n//2], C[:n//2,:n//2])
+        a01b10 = recursive_multipliction_write_through_fun(A[:n//2,n//2:], B[n//2:,:n//2], C[:n//2,:n//2])
         
         #M2 C upper right                       a00             b01             c01
-        a00b01 = rec_matmul_write_through(A[:n//2,:n//2], B[:n//2,n//2:], C[:n//2,n//2:])
+        a00b01 = recursive_multipliction_write_through_fun(A[:n//2,:n//2], B[:n//2,n//2:], C[:n//2,n//2:])
         #M3 C upper right                       a01             b11             c01
-        a01b11 = rec_matmul_write_through(A[:n//2,n//2:], B[n//2:,n//2:], C[:n//2,n//2:])
+        a01b11 = recursive_multipliction_write_through_fun(A[:n//2,n//2:], B[n//2:,n//2:], C[:n//2,n//2:])
         
         #M4 C lower left                        a10             b00             c10
-        a10b00 = rec_matmul_write_through(A[n//2:,:n//2], B[:n//2,:n//2], C[n//2:,:n//2])
+        a10b00 = recursive_multipliction_write_through_fun(A[n//2:,:n//2], B[:n//2,:n//2], C[n//2:,:n//2])
         #M5 C lower left                        a11             b10             c10
-        a11b10 = rec_matmul_write_through(A[n//2:,n//2:], B[n//2:,:n//2], C[n//2:,:n//2])
+        a11b10 = recursive_multipliction_write_through_fun(A[n//2:,n//2:], B[n//2:,:n//2], C[n//2:,:n//2])
         
         #M6 C lower right                       a10             b01             c11
-        a10b01 = rec_matmul_write_through(A[n//2:,:n//2], B[:n//2,n//2:], C[n//2:,n//2:])
+        a10b01 = recursive_multipliction_write_through_fun(A[n//2:,:n//2], B[:n//2,n//2:], C[n//2:,n//2:])
         #M7 C lower right                       a11             b11             c11
-        a11b11 = rec_matmul_write_through(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:])
+        a11b11 = recursive_multipliction_write_through_fun(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:])
 
         return C
     
@@ -381,12 +381,12 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, m: int)->Matrix
     if n <= m:
         return elementary_multiplication_in_place(A,B,C)
     else:
-        return rec_matmul_write_through(A,B,C)
+        return recursive_multipliction_write_through_fun(A,B,C)
 
 
 
 
-def strassen(A: Matrix, B: Matrix) -> Matrix:
+def strassen_fun(A: Matrix, B: Matrix) -> Matrix:
     
     n = A.rows()
     
@@ -437,13 +437,13 @@ def strassen(A: Matrix, B: Matrix) -> Matrix:
         Q7 = B[n//2:,:n//2] + B[n//2:,n//2:]
             
         # Then compute Mi = Pi*Qi by a recursive application of the function
-        M1 = strassen(P1,Q1)
-        M2 = strassen(P2,Q2)
-        M3 = strassen(P3,Q3)
-        M4 = strassen(P4,Q4)
-        M5 = strassen(P5,Q5)
-        M6 = strassen(P6,Q6)
-        M7 = strassen(P7,Q7)
+        M1 = strassen_fun(P1,Q1)
+        M2 = strassen_fun(P2,Q2)
+        M3 = strassen_fun(P3,Q3)
+        M4 = strassen_fun(P4,Q4)
+        M5 = strassen_fun(P5,Q5)
+        M6 = strassen_fun(P6,Q6)
+        M7 = strassen_fun(P7,Q7)
         
         # Following the recipe from the slides:
         
@@ -455,7 +455,7 @@ def strassen(A: Matrix, B: Matrix) -> Matrix:
         return C
 
 
-def strassen_main(A: Matrix, B: Matrix, m: int)->Matrix:
+def strassen(A: Matrix, B: Matrix, m: int)->Matrix:
     """
     Computes C=AB using Strassen's algorithm. The structure ought
     to be similar to the copying recursive algorithm. The parameter
@@ -467,7 +467,7 @@ def strassen_main(A: Matrix, B: Matrix, m: int)->Matrix:
     if n <= m:
         return elementary_multiplication(A,B)
     else:
-        return strassen(A,B)
+        return strassen_fun(A,B)
 
         
 
