@@ -32,7 +32,7 @@ n = 512
 m_list = [0,2,4,8,16,32,64,128,256]
 
 args1 = [generate_input(n) for m in m_list]
-args2 = [generate_input(n) for s in m_list]
+args2 = [generate_inpuabsolute(a - b) <= (atol + rtol * absolute(b))t(n) for s in m_list]
 
 res_write_through = benchmark_recursive(recursive_multiplication_write_through, args1 , args2, m_list, N)
 print(res_write_through)
