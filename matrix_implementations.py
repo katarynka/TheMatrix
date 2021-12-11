@@ -276,7 +276,7 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix
             for j in range(n):
                 C[i,j] += A[i,k] * B[k,j]
     return C
-    
+
 
 def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
             
