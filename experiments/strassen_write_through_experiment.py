@@ -17,10 +17,10 @@ def benchmark_recursive(f: FunType , args1: List[Matrix], args2: List[Matrix], a
         for j in range(N):
             A = args1[i]
             B = args2[i]
-            m = args3[i]
+            em = args3[i]
             print("m") 
-            print(m)
-            M[i,j] = measure(lambda: f(A,B,m))
+            print(em)
+            M[i,j] = measure(lambda: f(A,B,em))
             print("time:")
             print(M[i,j])
     means = np.mean(M,axis =1).reshape(m,1)
@@ -37,7 +37,7 @@ args2 = [generate_input(n) for s in m_list]
 res_write_through = benchmark_recursive(recursive_multiplication_write_through, args1 , args2, m_list, N)
 print(res_write_through)
 
-res_strassen = benchmark_recursive(strassen_fun, args1 , args2, m_list, N)
+res_strassen = benchmark_recursive(strassen, args1 , args2, m_list, N)
 print(res_strassen)
 
 
