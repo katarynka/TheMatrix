@@ -21,7 +21,7 @@ def get_input_range(n):
     return input_range
 
 
-def generate_input(n: int) -> List[int] :
+def generate_input(n: int) -> Matrix :
     list= []
     input_range = get_input_range(n)
     for i in range(0,n*n):
