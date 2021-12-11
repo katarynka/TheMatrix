@@ -145,7 +145,7 @@ class Matrix:
             m = Matrix(self.rows(), self.rows(), np.add(self._arr, that._arr))
             return m
         else: #If not a matrix but the sublevel where we just add two floats together
-            return self + that    
+            return self + that
 
     def __iadd__(self, that: Matrix)->Matrix:
         #In-place addition of two matrices, modifies the left-hand side operand.
@@ -165,7 +165,7 @@ class Matrix:
             #new matrix object that this should equal (we make a new instance of a matrix)
             m = Matrix(len(self._arr), len(self._arr), np.subtract(self._arr, that._arr))
             return m
-        else: #If not a matrix but the sublevel where we just subtract two floats together
+        else: #If not a matrix but the sublevel where we just subtract two floats
             return self - that
 
 
