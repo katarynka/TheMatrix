@@ -240,8 +240,8 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
                 for l in range(z):
                     for m in range(z):
                         for o in range(z):
-                            temp = subC.__getitem__((l,m)) + (subA.__getitem__((l,o))*subB.__getitem__((o,m)))
-                            subC.__setitem__((l,m),temp)
+                            temp = subC[l,m] + subA[l,o]*subB[o,m]
+                            subC[l,m] = temp
                 C[i*s:i*s+s,j*s:j*s+s].__iadd__(subC)
 
     return C
