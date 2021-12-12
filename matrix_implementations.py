@@ -332,7 +332,7 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
 
 
 
-def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m: int)->Matrix:
+def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m=0)->Matrix:
     
     #Instructions:
         # Computes C=AB recursively using a write-through strategy. That
@@ -354,31 +354,31 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m: in
         return C
     
     else:
-        #M0 C upper left                                        a00             b00             c00
+        #M0 C upper left                                     a00             b00             c00
         a00b00 = recursive_multiplication_write_through(A[:n//2,:n//2], B[:n//2,:n//2], C[:n//2,:n//2], m)
-        #M1 C upper left                                        a01             b10             c00
+        #M1 C upper left                                     a01             b10             c00
         a01b10 = recursive_multiplication_write_through(A[:n//2,n//2:], B[n//2:,:n//2], C[:n//2,:n//2], m)
         
-        #M2 C upper right                                       a00             b01             c01
+        #M2 C upper right                                    a00             b01             c01
         a00b01 = recursive_multiplication_write_through(A[:n//2,:n//2], B[:n//2,n//2:], C[:n//2,n//2:], m)
-        #M3 C upper right                                       a01             b11             c01
+        #M3 C upper right                                    a01             b11             c01
         a01b11 = recursive_multiplication_write_through(A[:n//2,n//2:], B[n//2:,n//2:], C[:n//2,n//2:], m)
         
-        #M4 C lower left                                        a10             b00             c10
+        #M4 C lower left                                     a10             b00             c10
         a10b00 = recursive_multiplication_write_through(A[n//2:,:n//2], B[:n//2,:n//2], C[n//2:,:n//2], m)
-        #M5 C lower left                                        a11             b10             c10
+        #M5 C lower left                                     a11             b10             c10
         a11b10 = recursive_multiplication_write_through(A[n//2:,n//2:], B[n//2:,:n//2], C[n//2:,:n//2], m)
         
-        #M6 C lower right                                       a10             b01             c11
+        #M6 C lower right                                    a10             b01             c11
         a10b01 = recursive_multiplication_write_through(A[n//2:,:n//2], B[:n//2,n//2:], C[n//2:,n//2:], m)
-        #M7 C lower right                                       a11             b11             c11
+        #M7 C lower right                                    a11             b11             c11
         a11b11 = recursive_multiplication_write_through(A[n//2:,n//2:], B[n//2:,n//2:], C[n//2:,n//2:], m)
 
         return C
 
 
 
-def strassen(A: Matrix, B: Matrix, m: int)->Matrix:
+def strassen(A: Matrix, B: Matrix, m=0)->Matrix:
     """
     Computes C=AB using Strassen's algorithm. The structure ought
     to be similar to the copying recursive algorithm. The parameter
