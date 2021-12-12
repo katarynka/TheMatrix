@@ -21,7 +21,7 @@ def generate_input(n: int) -> Matrix :
         list.append(float(l))
     return np.array(list).reshape(n,n)
 
-n=64
+n=32
 
 A = generate_input(n)
 B = generate_input(n)
@@ -29,10 +29,17 @@ B = generate_input(n)
 Am = Matrix(n,n,np.array(A).reshape(n,n))
 Bm = Matrix(n,n,np.array(B).reshape(n,n))
             
-#strass = strassen(Am, Bm)
-rec = recursive_multiplication_write_through(Am,Bm, Matrix(Am.rows(), Am.rows()))
 
 res = np.matmul(A,B) 
 
-#np.testing.assert_equal(strass, res)
-np.testing.assert_equal(rec, res)
+rec = recursive_multiplication_write_through(Am,Bm, Matrix(Am.rows(), Am.rows()), m=8)
+strass = strassen(Am, Bm, m=8)
+
+print(rec)
+print()
+print(strass)
+print()
+print(res)
+
+np.testing.assert_equal(strass.tolist(), res)
+np.testing.assert_equal(rec.tolist(), res)
