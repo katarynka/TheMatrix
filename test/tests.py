@@ -8,7 +8,7 @@ from matrix_implementations import *
 
 def get_input_range(n):
     lower_bound = 0
-    upper_bound = round(np.sqrt(2**(53)/n))
+    upper_bound = round(np.sqrt(2**(25)/n))
     input_range = [lower_bound, upper_bound]
     return input_range
 

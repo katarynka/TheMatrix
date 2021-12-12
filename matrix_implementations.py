@@ -230,7 +230,7 @@ def tiled_multiplication_fun_call(A: Matrix, B: Matrix, s: int)->Matrix:
             for k in range(n//s):
                 subA = A[i*s:i*s+s,k*s:k*s+s]
                 subB = B[k*s:k*s+s,j*s:j*s+s]
-                C[i*s:i*s+s,j*s:j*s+s] += elementary_multiplication(subA,subB)
+                C[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(subA,subB))
 
     return C
 

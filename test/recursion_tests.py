@@ -3,6 +3,8 @@ sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix/")
 #sys.setrecursionlimit(2000) Probably not necessary
 from matrix_implementations import *
 import random
+sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+import matrix_implementations as m
 import numpy as np
 
 
@@ -43,3 +45,17 @@ print(res)
 
 np.testing.assert_equal(strass.tolist(), res)
 np.testing.assert_equal(rec.tolist(), res)
+# m.recursive_multiplication_write_through(test, test2, 3)
+
+# res_num = np.matmul(test,test2)
+# print(res_num)
+
+# res_cop = m.recursive_multiplication_copying(m.Matrix(4,4, test), m.Matrix(4,4,test2))
+# print(res_cop)
+# m.recursive_multiplication_write_through(test, test2, 3)
+
+# res_num = np.matmul(test,test2)
+# print(res_num)
+
+# res_cop = m.recursive_multiplication_copying(m.Matrix(4,4, test), m.Matrix(4,4,test2))
+# print(res_cop)

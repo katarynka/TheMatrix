@@ -1,8 +1,8 @@
 import sys
 import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
-#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
-sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+# sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
 
 from matrix_implementations import *
 from measurement import *
@@ -19,9 +19,11 @@ def benchmark_tiled(f: FunType , args1: List[Matrix], args2: List[Matrix], args3
             A = args1[i]
             B = args2[i]
             s = args3[i]
-            print("tiled rows") 
-            print(A.rows())
+            print("tiled s") 
+            print(s)
             M[i,j] = measure(lambda: f(A,B,s))
+            print("time")
+            print(M[i,j])
     means = np.mean(M,axis =1).reshape(m,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
     return np.hstack ([means , stdevs ])
@@ -34,7 +36,7 @@ args1 = [generate_input(tiled_N) for s in s_list]
 args2 = [generate_input(tiled_N) for s in s_list]
 
 
-res_tiled = benchmark_tiled(tiled_multiplication, args1 , args2, s_list, N)
+res_tiled = benchmark_tiled(tiled_multiplication_fun_call, args1 , args2, s_list, N)
 print(res_tiled)
 
 
@@ -46,4 +48,4 @@ def write_csv_tiled(ns: List[int], res: np.ndarray ,
             writer.writerow ([s_list[i]] + res[i,:]. tolist ())
 
 
-write_csv_tiled(s_list, res_tiled, "tiledGG.csv")
+write_csv_tiled(s_list, res_tiled, "tiledfunKTOB.csv")
