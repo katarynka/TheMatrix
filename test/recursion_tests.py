@@ -59,3 +59,10 @@ np.testing.assert_equal(rec.tolist(), res)
 
 # res_cop = m.recursive_multiplication_copying(m.Matrix(4,4, test), m.Matrix(4,4,test2))
 # print(res_cop)
+# m.recursive_multiplication_write_through(test, test2, 3)
+
+res_num = np.matmul(test,test2)
+print(res_num)
+
+res_cop = m.recursive_multiplication_copying(m.Matrix(4,4, test), m.Matrix(4,4,test2))
+print(res_cop)
