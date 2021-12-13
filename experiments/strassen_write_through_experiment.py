@@ -56,25 +56,26 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
 
+def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #N is repetitions
 
+    n_list_length = len(n_list)
 
-# def benchmark_strassen(f: FunType , args1: List[Matrix], args2: List[Matrix], args3: List[int], N: int)->np.ndarray:
-#     m: int = len(args3)
-#     M: np.ndarray = np.zeros ((m,N)) # measurements
-#     for i in range(len(args3)):
-#         for j in range(N):
-#             A = args1[i]
-#             B = args2[i]
-#             em = args3[i]
-#             print("m") 
-#             print(em)
-#             M[i,j] = measure(lambda: f(A,B,em))
-#             print("time:")
-#             print(M[i,j])
-#             # time.sleep(20)
-#     means = np.mean(M,axis =1).reshape(m,1)
-#     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
-#     return np.hstack ([means , stdevs ])
+    M: np.ndarray = np.zeros((n_list_length, N))
+    # This loop takes each n in the n_list and puts in the randomly generated list
+    for n in range(n_list_length):
+        
+        A = generate_input(n_list[n])
+        B = generate_input(n_list[n])
+
+        for j in range(N):
+            M[n,j] = measure(lambda: f(A,B,m))
+            print("time:")
+            print(M[n,j])
+            # time.sleep(20)
+    means = np.mean(M,axis =1).reshape(n_list_length,1)
+    stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
+    return np.hstack ([means , stdevs ])
+
 
 def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
     """write_csv
@@ -103,5 +104,13 @@ for m in m_list:
     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
     relative_path = "experiments/Results/write_through_m_experiments/"
     title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
+    
+    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
+
+
+for m in m_list:
+    res = benchmark_strassen(strassen, n_list, m, N)
+    relative_path = "experiments/Results/strassen_m_experiments"
+    title = path + relative_path + str(m) + "strassen_matrix_multiplication_mtest.csv"
     
     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
