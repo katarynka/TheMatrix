@@ -89,5 +89,7 @@ n_list = [8,16,32,64]
 
 for m in m_list:
     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
-    title = str(m)+ "_recursive_write_through_matrix_multiplication_mtest.csv"
+    relative_path = "experiments/Results/write_through_m_experiments/"
+    title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
+    
     write_csv(n_list, res, title)
