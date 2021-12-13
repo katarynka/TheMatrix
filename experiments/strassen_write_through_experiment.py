@@ -51,7 +51,7 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
             M[n,j] = measure(lambda: f(A,B,C,m))
             print("time:")
             print(M[n,j])
-            # time.sleep(20)
+            time.sleep(30)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -71,7 +71,7 @@ def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #
             M[n,j] = measure(lambda: f(A,B,m))
             print("time:")
             print(M[n,j])
-            # time.sleep(20)
+            time.sleep(30)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -100,16 +100,17 @@ n_list = [8,16,32,64]
 # The list of m we are testing.
 m_list = [0,2,4,8,16,32]
 
-# for m in m_list:
-#     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
-#     relative_path = "experiments/Results/write_through_m_experiments/"
-#     title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
+for m in m_list:
+    res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
+    relative_path = "experiments/Results/write_through_m_experiments/"
+    title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
     
-#     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
+    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
 
+time.sleep(300)
 
 for m in m_list:
     res = benchmark_strassen(strassen, n_list, m, N)
     relative_path = "experiments/Results/strassen_m_experiments/"
-    title = path + relative_path + str(m) + "strassen_matrix_multiplication_mtest.csv"
+    title = path + relative_path + str(m) + "_strassen_matrix_multiplication_mtest.csv"
     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
