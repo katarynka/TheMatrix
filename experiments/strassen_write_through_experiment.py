@@ -3,11 +3,11 @@ import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
 import random
 
-katarzyna = False
+katarzyna = True
 
 if katarzyna:
-    sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
-    path = "/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix/"
+    sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
+    path = "/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/"
 else:
     sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
     path = "/home/gustavgyrst/Desktop/AA_Final/TheMatrix/"
@@ -100,17 +100,16 @@ n_list = [8,16,32,64]
 # The list of m we are testing.
 m_list = [0,2,4,8,16,32]
 
-for m in m_list:
-    res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
-    relative_path = "experiments/Results/write_through_m_experiments/"
-    title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
+# for m in m_list:
+#     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
+#     relative_path = "experiments/Results/write_through_m_experiments/"
+#     title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
     
-    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
+#     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
 
 
 for m in m_list:
     res = benchmark_strassen(strassen, n_list, m, N)
-    relative_path = "experiments/Results/strassen_m_experiments"
+    relative_path = "experiments/Results/strassen_m_experiments/"
     title = path + relative_path + str(m) + "strassen_matrix_multiplication_mtest.csv"
-    
     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
