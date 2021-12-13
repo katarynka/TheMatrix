@@ -347,10 +347,14 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m=0)-
     n = A.rows()
         
     if n <= m:
-        return elementary_multiplication_in_place(A,B,C)
+        for i in range(n):
+            for k in range(n):
+                for j in range(n):
+                    C._arr[i,j] += A._arr[i,k] * B._arr[k,j]
+        return C
 
     elif n == 1:
-        C[0] += A[0]*B[0]
+        C._arr[0] += A._arr[0]*B._arr[0]
         return C
     
     else:
@@ -388,8 +392,12 @@ def strassen(A: Matrix, B: Matrix, m=0)->Matrix:
     n = A.rows()
     
     if n <= m:
-        return elementary_multiplication(A,B)
-    
+        C = Matrix(n,n)
+        for i in range(n):
+            for k in range(n):
+                for j in range(n):
+                    C._arr[i,j] += A._arr[i,k]*B._arr[k,j]
+        return C    
     elif n == 1:
         C = A[0]*B[0]
         return C
