@@ -1,8 +1,8 @@
 import sys
 import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
-sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
-# sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
+#sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/TheMatrix")
+sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
 
 from matrix_implementations import *
 from measurement import *
@@ -41,6 +41,7 @@ def benchmark_strassen(f: FunType , args1: List[Matrix], args2: List[Matrix], ar
             M[i,j] = measure(lambda: f(A,B,em))
             print("time:")
             print(M[i,j])
+            time.sleep(20)
     means = np.mean(M,axis =1).reshape(m,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
     return np.hstack ([means , stdevs ])
@@ -54,11 +55,14 @@ args2 = [generate_input(n) for m in m_list]
 args3 = [Matrix(n,n) for m in m_list]
 
 res_write_through = benchmark_recursive(recursive_multiplication_write_through, args1 , args2, args3, m_list, N)
+
+
+time.sleep(300)
+print("Continues for test with Strassen")
+
+
 res_strassen = benchmark_strassen(strassen, args1 , args2, m_list, N)
 print(res_write_through)
-
-# time.sleep(600)
-# print("Continues for test with Strassen")
 
 print(res_strassen)
 
