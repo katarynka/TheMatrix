@@ -399,7 +399,7 @@ def strassen(A: Matrix, B: Matrix, m=0)->Matrix:
                     C._arr[i,j] += A._arr[i,k]*B._arr[k,j]
         return C    
     elif n == 1:
-        C = A[0]*B[0]
+        C = A._arr[0]*B._arr[0]
         return C
     
     else:
