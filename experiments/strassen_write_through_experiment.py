@@ -39,7 +39,7 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
     
     n_list_length = len(n_list)
     
-    M: np.ndarray = np.zeros((n_list_length, N)) # measurements
+    M: np.ndarray = np.zeros((n_list_length, N))
     # This loop takes each n in the n_list and puts in the randomly generated list
     for n in range(n_list_length):
         
@@ -76,20 +76,32 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
 #     stdevs = np.std(M,axis=1,ddof =1).reshape(m,1)
 #     return np.hstack ([means , stdevs ])
 
-def write_csv(n_list: list, res: np.ndarray, filename: str):
+def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
+    """write_csv
+
+    Args:
+        n_list (list): list of n (the matrix side length) that the the experiment is run with
+        res (np.ndarray): results from the experiment
+        filename (str): the filename that you desire
+        column_titles (lst): takes a list with the columns title for the csv file. The titles should be given comma seperated words and no spaces
+    """
     with open(filename ,'w') as f:
         writer = csv.writer(f)
+        if column_titles != None:
+            writer.writerow(column_titles)
         for i in range(len(n_list)):
             writer.writerow ([n_list[i]] + res[i,:].tolist())
 
-
+# The number of repetition we have for each experiment we run
 N = 3
-m_list = [0,2,4,8,16,32]
+# list of n-values we test on.
 n_list = [8,16,32,64]
+# The list of m we are testing.
+m_list = [0,2,4,8,16,32]
 
 for m in m_list:
     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
     relative_path = "experiments/Results/write_through_m_experiments/"
     title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
     
-    write_csv(n_list, res, title)
+    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
