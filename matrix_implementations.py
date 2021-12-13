@@ -161,7 +161,7 @@ class Matrix:
         """
         Regular subtraction of two matrices. Does not modify the operands.
         """
-        if isinstance(that, Matrix):
+        if isinstance(self, Matrix):
             #new matrix object that this should equal (we make a new instance of a matrix)
             m = Matrix(len(self._arr), len(self._arr), np.subtract(self._arr, that._arr))
             return m
@@ -452,8 +452,5 @@ def strassen(A: Matrix, B: Matrix, m=0)->Matrix:
         C11 += M1 - M2 + M3 + M6
 
         return C
-
-        
-
 
 
