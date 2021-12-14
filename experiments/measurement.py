@@ -39,6 +39,16 @@ def generate_input(n: int) -> Matrix :
     list= []
     input_range = get_input_range(n)
     for i in range(0,n*n):
+        random.seed(n + i)
+        l = random.randint(input_range[0],int(input_range[1]))
+        list.append(float(l))
+    return Matrix(n,n,np.array(list).reshape(n,n))
+
+
+def generate_input(n: int) -> Matrix :
+    list= []
+    input_range = get_input_range(n)
+    for i in range(0,n*n):
         random.seed(i+n)
         l = random.randint(input_range[0],int(input_range[1]))
         list.append(float(l))
