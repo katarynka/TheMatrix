@@ -3,7 +3,7 @@ import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
 import random
 
-katarzyna = True
+katarzyna = False
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
@@ -11,6 +11,9 @@ if katarzyna:
 else:
     sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
     path = "/home/gustavgyrst/Desktop/AA_Final/TheMatrix/"
+    
+    # sys.path.append("C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\")
+    # path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\"
 
 from matrix_implementations import *
 from measurement import *
@@ -46,12 +49,13 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
         C = Matrix(n_list[n],n_list[n])
-    
+        time.sleep(20)
+        
         for j in range(N):
             M[n,j] = measure(lambda: f(A,B,C,m))
             print("time:")
             print(M[n,j])
-            time.sleep(30)
+            time.sleep(5)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -66,12 +70,12 @@ def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #
         
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
-
+        time.sleep(20)
         for j in range(N):
             M[n,j] = measure(lambda: f(A,B,m))
             print("time:")
             print(M[n,j])
-            time.sleep(30)
+            time.sleep(5)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -96,9 +100,9 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=No
 # The number of repetition we have for each experiment we run
 N = 3
 # list of n-values we test on.
-n_list = [8,16,32,64]
+n_list = [8,16,32,64,128,256,512]
 # The list of m we are testing.
-m_list = [0,2,4,8,16,32]
+m_list = [0,2,4,8,16,32,64,128,256]
 
 for m in m_list:
     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
@@ -107,7 +111,7 @@ for m in m_list:
     
     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
 
-time.sleep(300)
+time.sleep(180)
 
 for m in m_list:
     res = benchmark_strassen(strassen, n_list, m, N)
