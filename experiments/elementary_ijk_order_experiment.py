@@ -27,11 +27,11 @@ from measurement import *
 #3! different permutations / orders --> Therefore we have the following combinations:
 
 ijk_order = [['i','j','k'], 
-         ['i','k','j'], 
-         ['k','i','j'], 
-         ['k','j','i'], 
-         ['j','k','i'], 
-         ['j','i','k']]
+            ['i','k','j'], 
+            ['k','i','j'], 
+            ['k','j','i'], 
+            ['j','k','i'], 
+            ['j','i','k']]
 
 def elementary_multiplication_ijk(A: Matrix, B: Matrix, order:list)->Matrix:
     n = A.cols()
