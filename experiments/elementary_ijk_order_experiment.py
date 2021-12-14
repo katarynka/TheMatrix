@@ -55,10 +55,10 @@ if quick_test == True:
     M21 = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).reshape(4,4)
 
 
-    print(elementary_multiplication_ijk(M1,M2, order[5]))
+    print(elementary_multiplication_ijk(M1,M2, ijk_order[5]))
     print(np.matmul(M11,M21))
 
-N = 1
+N = 3
 n_list = [2,4,8,16,32,64,128]
 
 def benchmark_elementary_ijk(f: FunType , n_list: list, order:list, N: int)-> np.ndarray:
@@ -102,7 +102,7 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=No
 
 
 
- # This loop goes through all the ijk_order combinations
+# This loop goes through all the ijk_order combinations
 for ijk in ijk_order:
     ijk_order_name = ijk[0] + ijk[1] + ijk[2]
     res = benchmark_elementary_ijk(elementary_multiplication_ijk, n_list, ijk, N)
