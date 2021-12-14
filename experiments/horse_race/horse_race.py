@@ -1,0 +1,14 @@
+from elementary_matrix_multiplication_e import run_elementary_benchmark
+from elementary_matrix_transposed_e import run_transposed_benchmark
+from tiled_matrix_multiplication_e import run_tiled_benchmark
+from recursive_copying_matrix_multiplication_e import run_copying_benchmark
+from recursive_write_through_matrix_multiplication_e import run_write_through_benchmark
+from strassens_e import run_strassen_benchmark
+
+
+run_elementary_benchmark()
+run_transposed_benchmark()
+run_tiled_benchmark()
+run_copying_benchmark()
+run_write_through_benchmark()
+run_strassen_benchmark()
