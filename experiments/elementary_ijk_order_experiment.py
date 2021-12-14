@@ -110,4 +110,3 @@ for ijk in ijk_order:
     relative_path = "experiments/Results/elementary_ijk_experiment/"
     title = path + relative_path + ijk_order_name + "_elementary_ijk_experiment_order.csv"
     write_csv(n_list, res, title, column_titles=["n","time(s)","stdv"])
-
