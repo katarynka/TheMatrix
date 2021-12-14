@@ -1,9 +1,10 @@
-from typing import List , Tuple , Optional ,  Callable 
+from typing import List, Tuple, Optional, Callable 
 import csv
 import sys
 import numpy as np
 
-katarzyna = True
+katarzyna = False
+on_linux = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments/")
@@ -28,25 +29,32 @@ def benchmark_elementary(f: FunType , n_list: list, N: int)->np.ndarray: #N is r
     
     M: np.ndarray = np.zeros((n_list_length, N))
     # This loop takes each n in the n_list and puts in the randomly generated list
-    for n in range(n_list_length):     
+    for n in range(n_list_length): 
+            
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
+            
         
+        if warm_up == True:
+            print("warm_up")
+            f(A,B)
+            f(A,B)
+        print("Show-time!")
         for j in range(N):
-            print(f(A,B))
             M[n,j] = measure(lambda: f(A,B))
-            # print("time:")
-            # print(M[n,j])
-            # time.sleep(5)
-        # time.sleep(20)
+            print("time:")
+            print(M[n,j])
+            if sleep: time.sleep(5)
+        
+        if sleep: time.sleep(20)
+        
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
-    return np.hstack ([means , stdevs ])
+    return np.hstack ([means , stdevs])
 
 
 def run_elementary_benchmark():
     print("elementary")
     res_elementary = benchmark_elementary(elementary_multiplication, n_list, N)
-
     elementary = path + relative_path + "elementary_multiplication_race.csv"
     write_csv(n_list, res_elementary, elementary, column_titles=column_titles)

@@ -5,7 +5,7 @@ import random
 import sys
 import random
 
-katarzyna = True
+katarzyna = False
 on_linux = True
 
 if katarzyna:

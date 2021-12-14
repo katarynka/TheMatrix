@@ -3,7 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = True
+katarzyna = False
+on_linux = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments")
@@ -32,13 +33,18 @@ def benchmark_copying(f: FunType , n_list: list, N: int)->np.ndarray: #N is repe
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
         
+        if warm_up == True:
+            print("warm_up")
+            f(A,B)
+            f(A,B)
+        
+        print("Show-time!")
         for j in range(N):
-            print(f(A,B))
             M[n,j] = measure(lambda: f(A,B))
-            # print("time:")
-            # print(M[n,j])
-            # time.sleep(5)
-        # time.sleep(20)
+            print("time:")
+            print(M[n,j])
+            if sleep: time.sleep(5)
+        if sleep: time.sleep(20)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
