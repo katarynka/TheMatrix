@@ -184,8 +184,7 @@ def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
     for i in range(n):
         for j in range(n):
             for k in range(n):
-                temp = C._arr[i,j] + A._arr[i,k]*B._arr[k,j]
-                C._arr[i,j] = temp
+                C._arr[i,j] += A._arr[i,k]*B._arr[k,j]
     return C
 
 def elementary_multiplication2(A: Matrix, B: Matrix)->Matrix:
@@ -216,8 +215,8 @@ def elementary_multiplication_transposed(A: Matrix, B: Matrix)->Matrix:
     for i in range(n):
         for j in range(n):
             for k in range(n):
-                temp = C._arr[i,j] + A._arr[i,k]*B._arr[j,k]
-                C._arr[i,j] = temp
+                C._arr[i,j] += A._arr[i,k]*B._arr[j,k]
+
     return C
 
 
@@ -241,16 +240,16 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
     for i in range(n//s):
         for j in range(n//s):
             for k in range(n//s):
-                subA = A._arr[i*s:i*s+s,k*s:k*s+s]
-                subB = B._arr[k*s:k*s+s,j*s:j*s+s]
+                subA = A[i*s:i*s+s,k*s:k*s+s]
+                subB = B[k*s:k*s+s,j*s:j*s+s]
                 z = subA.cols()
                 subC = Matrix(z,z)
                 for l in range(z):
                     for m in range(z):
                         for o in range(z):
-                            temp = subC._arr[l,m] + subA._arr[l,o]*subB._arr[o,m]
-                            subC._arr[l,m] = temp
-                C._arr[i*s:i*s+s,j*s:j*s+s].__iadd__(subC)
+                            temp = subC[l,m] + subA[l,o]*subB[o,m]
+                            subC[l,m] = temp
+                C[i*s:i*s+s,j*s:j*s+s].__iadd__(subC)
 
     return C
 
