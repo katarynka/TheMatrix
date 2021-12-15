@@ -9,7 +9,7 @@ FunType = Callable [[List[int]], OptTuple3i]
 
 katarzyna = False
 on_linux = True
-sleep = False
+sleep = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
