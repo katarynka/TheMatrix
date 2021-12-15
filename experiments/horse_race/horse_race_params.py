@@ -8,11 +8,11 @@ sleep = False
 warm_up = True
 
 
-n_list = [2,4,8,16]
-N = 2
-s = 4 ## to be changed!!!! s256
-m_strassen = 4 # change!!!! m8
-m_write_trhough = 4 # change1!!! m256
+n_list = [2,4,8,16,32,64,128,256]
+N = 3
+s = 32 ## to be changed!!!! s256
+m_strassen = 8 # change!!!! m8
+m_write_trhough = 16 # change1!!! m256
 
 def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
     """write_csv
