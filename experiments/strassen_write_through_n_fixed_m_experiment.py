@@ -7,7 +7,7 @@ OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
 
 
-katarzyna = False
+katarzyna = True
 on_linux = True
 sleep = True
 warm_up = True
