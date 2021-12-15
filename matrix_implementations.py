@@ -271,8 +271,8 @@ def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix
     # and seen when we run it in Java, we do not get in python.
     
     for i in range(n):
-        for k in range(n):
-            for j in range(n):
+        for j in range(n):
+            for k in range(n):
                 C._arr[i,j] += A._arr[i,k] * B._arr[k,j]
     return C
 
@@ -281,7 +281,7 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
             
     n = A.rows()
     
-    if A.rows().__eq__(1):
+    if A.rows() == 1:
     
         C = A[0]*B[0]
         return C
@@ -347,8 +347,8 @@ def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m=0)-
         
     if n <= m:
         for i in range(n):
-            for k in range(n):
-                for j in range(n):
+            for j in range(n):
+                for k in range(n):
                     C._arr[i,j] += A._arr[i,k] * B._arr[k,j]
         return C
 
@@ -393,8 +393,8 @@ def strassen(A: Matrix, B: Matrix, m=0)->Matrix:
     if n <= m:
         C = Matrix(n,n)
         for i in range(n):
-            for k in range(n):
-                for j in range(n):
+            for j in range(n):
+                for k in range(n):
                     C._arr[i,j] += A._arr[i,k]*B._arr[k,j]
         return C    
     elif n == 1:
