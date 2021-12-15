@@ -10,6 +10,7 @@ FunType = Callable [[List[int]], OptTuple3i]
 katarzyna = True
 on_linux = True
 sleep = True
+warm_up = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
@@ -42,8 +43,8 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:list=N
         for i in range(len(n_list)):
             writer.writerow ([n_list[i]] + res[i,:].tolist())
 
-n = 32
-m_list = [0,2,4,8,16]
+n = 256
+m_list = [0,2,4,8,16,32,64,128]
 N = 3 
 
 def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray: 
@@ -57,11 +58,17 @@ def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         A = generate_input(n)
         B = generate_input(n)
         
+        
         if sleep: time.sleep(20)
+        
+        if warm_up:
+            C = Matrix(n,n)
+            f(A,B,C,m_list[m])
+            C = Matrix(n,n)
+            f(A,B,C,m_list[m])
         
         for j in range(N):
             C = Matrix(n,n)
-            mtest = m_list[m]
             M[m,j] = measure(lambda: f(A,B,C,m_list[m]))
             print("time:")
             print(M[m,j])
@@ -75,8 +82,8 @@ def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
 def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
 
     m_list_length = len(m_list)
-
     M: np.ndarray = np.zeros((m_list_length, N))
+    
     # This loop takes each n in the n_list and puts in the randomly generated list
     for m in range(m_list_length):
         
@@ -84,6 +91,10 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         B = generate_input(n)
         
         if sleep: time.sleep(20)
+        
+        if warm_up:
+            f(A,B,m_list[m])
+            f(A,B,m_list[m])
         
         for j in range(N):
             M[m,j] = measure(lambda: f(A,B,m_list[m]))
