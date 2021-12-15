@@ -281,7 +281,7 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
             
     n = A.rows()
     
-    if A.rows().__eq__(1):
+    if A.rows() == 1:
     
         C = A[0]*B[0]
         return C
