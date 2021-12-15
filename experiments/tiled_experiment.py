@@ -1,8 +1,10 @@
 import sys
 import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
-katarzyna = True
-on_linux = False
+
+
+katarzyna = False
+on_linux = True
 sleep = True
 warmup = True
 
@@ -53,8 +55,8 @@ def benchmark_tiled(f: FunType , s_list: list, n:int, N: int)->np.ndarray:
 
 
 N = 3
-tiled_N = 512
-s_list = [2,4,8,16,32,64,128,256]
+tiled_N = 32
+s_list = [2,4,8,16,32,64,128]
 
 
 
@@ -78,7 +80,7 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=No
         for i in range(len(n_list)):
             writer.writerow ([n_list[i]] + res[i,:].tolist())
 
-relative_path = "experiments/Results/tiled_results/"
+relative_path = "experiments/Results/tiled_experiment/"
 tiled = path + relative_path + "tiled_multiplication_s_experiment.csv"
 column_titles = ["n","time","stdv"]
 write_csv(s_list, res_tiled, tiled, column_titles)
