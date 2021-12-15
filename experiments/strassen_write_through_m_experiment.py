@@ -3,7 +3,9 @@ import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
 import random
 
-katarzyna = False
+katarzyna = True
+sleep = True
+warmup = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
@@ -48,14 +50,19 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
         
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
-        C = Matrix(n_list[n],n_list[n])
-        time.sleep(20)
-        
+        if sleep: time.sleep(20)
+        if warmup:
+            C = Matrix(n_list[n],n_list[n])
+            f(A,B,C,m)
+            C = Matrix(n_list[n],n_list[n])
+            f(A,B,C,m)
+
         for j in range(N):
+            C = Matrix(n_list[n],n_list[n])
             M[n,j] = measure(lambda: f(A,B,C,m))
             print("time:")
             print(M[n,j])
-            time.sleep(5)
+            if sleep: time.sleep(5)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -70,12 +77,17 @@ def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #
         
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
-        time.sleep(20)
+        if sleep: time.sleep(20)
+
+        if warmup:
+            f(A,B,m)
+            f(A,B,m)
+
         for j in range(N):
             M[n,j] = measure(lambda: f(A,B,m))
             print("time:")
             print(M[n,j])
-            time.sleep(5)
+            if sleep: time.sleep(5)
     means = np.mean(M,axis =1).reshape(n_list_length,1)
     stdevs = np.std(M,axis=1,ddof =1).reshape(n_list_length,1)
     return np.hstack ([means , stdevs ])
@@ -111,7 +123,7 @@ for m in m_list:
     
     write_csv(n_list, res, title, column_titles=["n","time","stdv"])
 
-time.sleep(180)
+if sleep: time.sleep(180)
 
 for m in m_list:
     res = benchmark_strassen(strassen, n_list, m, N)

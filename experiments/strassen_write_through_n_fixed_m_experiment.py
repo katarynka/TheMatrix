@@ -7,7 +7,7 @@ OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
 
 
-katarzyna = False
+katarzyna = True
 on_linux = True
 sleep = True
 
@@ -56,12 +56,13 @@ def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         
         A = generate_input(n)
         B = generate_input(n)
-        C = Matrix(n,n)
         
         if sleep: time.sleep(20)
         
         for j in range(N):
-            M[m,j] = measure(lambda: f(A,B,C,m))
+            C = Matrix(n,n)
+            mtest = m_list[m]
+            M[m,j] = measure(lambda: f(A,B,C,m_list[m]))
             print("time:")
             print(M[m,j])
             
@@ -85,7 +86,7 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         if sleep: time.sleep(20)
         
         for j in range(N):
-            M[m,j] = measure(lambda: f(A,B,m))
+            M[m,j] = measure(lambda: f(A,B,m_list[m]))
             print("time:")
             print(M[m,j])
             
