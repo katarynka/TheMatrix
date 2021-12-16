@@ -42,8 +42,8 @@ def benchmark_transposed(f: FunType , n_list: list, N: int)->np.ndarray: #N is r
         print("Show-time!")
         for j in range(N):
             M[n,j] = measure(lambda: f(A,B))
-            # print("time:")
-            # print(M[n,j])
+            print("time:")
+            print(M[n,j])
             if sleep: time.sleep(5)
         
         if sleep: time.sleep(20)
