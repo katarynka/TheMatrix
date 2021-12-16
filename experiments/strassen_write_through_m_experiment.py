@@ -3,8 +3,8 @@ import csv
 from typing import List , Tuple , Optional , Dict , Callable , Any
 import random
 
-katarzyna = True
-sleep = True
+katarzyna = False
+sleep = False
 warmup = True
 
 if katarzyna:
@@ -112,9 +112,9 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=No
 # The number of repetition we have for each experiment we run
 N = 3
 # list of n-values we test on.
-n_list = [8,16,32,64,128,256,512]
+n_list = [2,4,8,16,32,64,128,256]
 # The list of m we are testing.
-m_list = [0,2,4,8,16,32,64,128,256]
+m_list = [0,2,4,8,16,32,64,128]
 
 for m in m_list:
     res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
