@@ -81,6 +81,6 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=No
             writer.writerow ([n_list[i]] + res[i,:].tolist())
 
 relative_path = "experiments/tiled_experiment/"
-tiled = path + relative_path + "256n_tiled_multiplication_s_experiment.csv"
+tiled = path + relative_path + "128n_tiled_multiplication_s_experiment.csv"
 column_titles = ["s","time","stdv"]
 write_csv(s_list, res_tiled, tiled, column_titles)
