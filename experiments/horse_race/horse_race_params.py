@@ -3,15 +3,16 @@ import numpy as np
 
 relative_path = "experiments/horse_race/horse_race_results/"
 column_titles = ["n","time","stdv"]
-file_name = "GG"
+file_name = "GG_"
 
-sleep = True
+sleep = False
 warm_up = True
 
+katarzyna = False
 
 n_list = [2,4,8,16,32,64,128,256]
 N = 3
-s = 32 ## to be changed!!!! s256
+s = 32 ## to be changed!!!! s256 --> This does not matter as s is modified inside the benchmark in alignment with our findings.
 m_strassen = 8 # change!!!! m8
 m_write_trhough = 16 # change1!!! m256
 
