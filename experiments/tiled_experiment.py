@@ -55,8 +55,8 @@ def benchmark_tiled(f: FunType , s_list: list, n:int, N: int)->np.ndarray:
 
 
 N = 3
-tiled_N = 128
-s_list = [2,4,8,16,32,64]
+tiled_N = 512
+s_list = [2,4,8,16,32,64,128,256]
 
 
 

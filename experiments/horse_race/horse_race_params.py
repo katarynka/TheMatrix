@@ -13,8 +13,8 @@ katarzyna = False
 n_list = [2,4,8,16,32,64,128,256]
 N = 3
 s = 32 ## to be changed!!!! s256 --> This does not matter as s is modified inside the benchmark in alignment with our findings.
-m_strassen = 0 # change!!!! m8
-m_write_trhough = 0 # change1!!! m256
+m_strassen = 8 # change!!!! m8
+m_write_trhough = 16 # change1!!! m32 --> m256
 
 def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
     """write_csv
