@@ -39,6 +39,13 @@ def benchmark_tiled(f: FunType , n_list: list, s:int, N: int)->np.ndarray: #N is
             f(A,B,s)
         
         print("show_time!")
+        
+        # Calculating the Dynamic S value so that it divides the matrix into 8 pieces (optimal).
+        if (n>8):
+            s = n/8
+        else:
+            s = n/2
+            
         for j in range(N):
             M[n,j] = measure(lambda: f(A,B,s))
             print("time:")
