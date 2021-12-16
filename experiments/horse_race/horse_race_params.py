@@ -3,6 +3,7 @@ import numpy as np
 
 relative_path = "experiments/horse_race/horse_race_results/"
 column_titles = ["n","time","stdv"]
+file_name = "GG"
 
 sleep = True
 warm_up = True

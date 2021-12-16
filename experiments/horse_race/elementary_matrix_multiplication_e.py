@@ -3,8 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = False
 on_linux = True
+from horse_race_params import *
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments/")
@@ -18,7 +18,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments\\"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -56,5 +55,5 @@ def benchmark_elementary(f: FunType , n_list: list, N: int)->np.ndarray: #N is r
 def run_elementary_benchmark():
     print("elementary")
     res_elementary = benchmark_elementary(elementary_multiplication, n_list, N)
-    elementary = path + relative_path + "elementary_multiplication_race.csv"
+    elementary = path + relative_path + file_name + "elementary_multiplication_race.csv"
     write_csv(n_list, res_elementary, elementary, column_titles=column_titles)

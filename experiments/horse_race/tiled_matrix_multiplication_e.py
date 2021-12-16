@@ -3,8 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = False
 on_linux = True
+from horse_race_params import *
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments")
@@ -18,7 +18,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments\\"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -60,5 +59,5 @@ def benchmark_tiled(f: FunType , n_list: list, s:int, N: int)->np.ndarray: #N is
 def run_tiled_benchmark():
     print('tiled')
     res_tiled = benchmark_tiled(tiled_multiplication, n_list, s=s, N=N)
-    tiled = path + relative_path + "tiled_multiplication_race.csv"
+    tiled = path + relative_path + file_name + "tiled_multiplication_race.csv"
     write_csv(n_list, res_tiled, tiled, column_titles=column_titles)
