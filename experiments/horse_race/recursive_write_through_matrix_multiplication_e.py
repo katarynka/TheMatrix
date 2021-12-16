@@ -3,8 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = False
 on_linux = True
+from horse_race_params import *
 
 
 if katarzyna:
@@ -19,7 +19,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -59,5 +58,5 @@ def benchmark_write_through(f: FunType , n_list: list, m:int, N: int)->np.ndarra
 def run_write_through_benchmark():
     print("write_through")
     res_write_through = benchmark_write_through(recursive_multiplication_write_through, n_list, m=m_write_trhough, N=N)
-    write_through = path + relative_path + "recursive_write_through_multiplication_race.csv"
+    write_through = path + relative_path + file_name + "recursive_write_through_multiplication_race.csv"
     write_csv(n_list, res_write_through, write_through, column_titles=column_titles)

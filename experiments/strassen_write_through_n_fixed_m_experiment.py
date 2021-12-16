@@ -10,7 +10,7 @@ FunType = Callable [[List[int]], OptTuple3i]
 katarzyna = True
 on_linux = True
 sleep = True
-warm_up = True
+warmup = True
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
@@ -43,8 +43,8 @@ def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:list=N
         for i in range(len(n_list)):
             writer.writerow ([n_list[i]] + res[i,:].tolist())
 
-n = 256
-m_list = [0,2,4,8,16,32,64,128]
+n = 512
+m_list = [0,2,4,8,16,32,64,128,256]
 N = 3 
 
 def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray: 
@@ -58,15 +58,12 @@ def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         A = generate_input(n)
         B = generate_input(n)
         
-        
         if sleep: time.sleep(20)
-        
-        if warm_up:
+        if warmup:
             C = Matrix(n,n)
             f(A,B,C,m_list[m])
             C = Matrix(n,n)
             f(A,B,C,m_list[m])
-        
         for j in range(N):
             C = Matrix(n,n)
             M[m,j] = measure(lambda: f(A,B,C,m_list[m]))
@@ -91,8 +88,7 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         B = generate_input(n)
         
         if sleep: time.sleep(20)
-        
-        if warm_up:
+        if warmup:
             f(A,B,m_list[m])
             f(A,B,m_list[m])
         
@@ -107,18 +103,19 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
     stdevs = np.std(M,axis=1,ddof =1).reshape(m_list_length,1)
     return np.hstack ([means , stdevs ])
 
-# M-EXPERIMENT FOR WRITE-THROUGH
-res_write_through = benchmark_recursive(recursive_multiplication_write_through, m_list, n, N)
-title_write_through = "n" + str(n) + "_recursive_write_through_n_fixed_mtest.csv"
-relative_path_write_through = "experiments/Results/write_through_m_experiments/"
-full_path_write_through = path + relative_path_write_through + title_write_through
-write_csv(m_list, res_write_through, full_path_write_through, ["n","time(s)","stdv"])
+def run_fixed_n():
+    # M-EXPERIMENT FOR WRITE-THROUGH
+    res_write_through = benchmark_recursive(recursive_multiplication_write_through, m_list, n, N)
+    title_write_through = "n" + str(n) + "_recursive_write_through_n_fixed_mtest_ktob.csv"
+    relative_path_write_through = "experiments/Results/write_through_m_experiments/"
+    full_path_write_through = path + relative_path_write_through + title_write_through
+    write_csv(m_list, res_write_through, full_path_write_through, ["n","time(s)","stdv"])
 
 
-# M-EXPERIMENT FOR STRASSEN
-res_strassen = benchmark_strassen(strassen, m_list, n, N)
-title_strassen = "n" + str(n) + "_strassen_n_fixed_mtest.csv"
-relative_path_strassen = "experiments/Results/strassen_m_experiments/"
-full_path_strassen = path + relative_path_strassen + title_strassen
-write_csv(m_list, res_strassen, full_path_strassen, ["n","time(s)","stdv"])
+    # M-EXPERIMENT FOR STRASSEN
+    res_strassen = benchmark_strassen(strassen, m_list, n, N)
+    title_strassen = "n" + str(n) + "_strassen_n_fixed_mtest_ktob.csv"
+    relative_path_strassen = "experiments/Results/strassen_m_experiments/"
+    full_path_strassen = path + relative_path_strassen + title_strassen
+    write_csv(m_list, res_strassen, full_path_strassen, ["m","time(s)","stdv"])
 

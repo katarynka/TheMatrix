@@ -3,16 +3,18 @@ import numpy as np
 
 relative_path = "experiments/horse_race/horse_race_results/"
 column_titles = ["n","time","stdv"]
+file_name = "GG"
 
-sleep = False
+katarzyna = True
+sleep = True
 warm_up = True
 
 
-n_list = [2,4,8,16]
-N = 2
-s = 4 ## to be changed!!!! s256
-m_strassen = 4 # change!!!! m8
-m_write_trhough = 4 # change1!!! m256
+n_list = [2,4,8,16,32,64,128,256,512]
+N = 3
+s = 256 ## to be changed!!!! s256
+m_strassen = 8 # change!!!! m8
+m_write_trhough = 256 # change1!!! m256
 
 def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
     """write_csv

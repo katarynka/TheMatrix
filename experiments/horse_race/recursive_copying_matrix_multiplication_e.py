@@ -3,8 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = False
 on_linux = True
+from horse_race_params import *
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments")
@@ -18,7 +18,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments\\"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -53,5 +52,5 @@ def benchmark_copying(f: FunType , n_list: list, N: int)->np.ndarray: #N is repe
 def run_copying_benchmark():
     print("copying")
     res_copying = benchmark_copying(recursive_multiplication_copying, n_list, N)
-    copying = path + relative_path + "recursive_copying_multiplication_race.csv"
+    copying = path + relative_path + file_name + "recursive_copying_multiplication_race.csv"
     write_csv(n_list, res_copying, copying, column_titles=column_titles)

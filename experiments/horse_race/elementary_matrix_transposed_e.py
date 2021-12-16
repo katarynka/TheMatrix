@@ -3,9 +3,9 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = False
 on_linux = True
 
+from horse_race_params import *
 
 if katarzyna:
     sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/experiments/")
@@ -19,7 +19,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments\\"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -57,5 +56,5 @@ def benchmark_transposed(f: FunType , n_list: list, N: int)->np.ndarray: #N is r
 def run_transposed_benchmark():
     print("transposed")
     res_transposed = benchmark_transposed(elementary_multiplication_transposed, n_list, N)
-    transposed = path + relative_path + "elementary_transposed_multiplication_race.csv"
+    transposed = path + relative_path + file_name + "elementary_transposed_multiplication_race.csv"
     write_csv(n_list, res_transposed, transposed, column_titles=column_titles)

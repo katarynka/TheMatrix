@@ -3,8 +3,8 @@ import csv
 import sys
 import numpy as np
 
-katarzyna = True
 on_linux = True
+from horse_race_params import *
 
 
 if katarzyna:
@@ -19,7 +19,6 @@ else:
         path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\experiments\\"
 
 from measurement import *
-from horse_race_params import *
 
 OptTuple3i = Optional[Tuple[int ,int ,int]]
 FunType = Callable [[List[int]], OptTuple3i]
@@ -53,5 +52,5 @@ def benchmark_strassen(f: FunType , n_list: list, m:int, N: int)->np.ndarray: #N
 def run_strassen_benchmark():
     print("strassen")
     res_strassen = benchmark_strassen(strassen, n_list, m=m_strassen, N=N)
-    strassens = path + relative_path + "strassen_multiplication_race.csv"
+    strassens = path + relative_path + file_name + "strassen_multiplication_race.csv"
     write_csv(n_list, res_strassen, strassens, column_titles=column_titles)
