@@ -1,51 +1,16 @@
 import sys
-import csv
-from typing import List , Tuple , Optional , Dict , Callable , Any
-import random
+import os
+  
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
 
-OptTuple3i = Optional[Tuple[int ,int ,int]]
-FunType = Callable [[List[int]], OptTuple3i]
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+sys.path.append(parent)
 
-
-katarzyna = True
-on_linux = True
-sleep = True
-warmup = True
-
-if katarzyna:
-    sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
-    path = "/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/"
-else:
-    if on_linux == True:
-        sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
-        path = "/home/gustavgyrst/Desktop/AA_Final/TheMatrix/"
-    else:
-        sys.path.append("C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\")
-        path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\"
-        
-from matrix_implementations import *
-from measurement import *
-
-
-def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:list=None):
-    """write_csv
-
-    Args:
-        n_list/m_list (list): list of n (the matrix side length) / m that the the experiment is run with
-        res (np.ndarray): results from the experiment
-        filename (str): the filename that you desire
-        column_titles (lst): takes a list with the columns title for the csv file. The titles should be given comma seperated words and no spaces
-    """
-    with open(filename ,'w') as f:
-        writer = csv.writer(f)
-        if column_titles != None:
-            writer.writerow(column_titles)
-        for i in range(len(n_list)):
-            writer.writerow ([n_list[i]] + res[i,:].tolist())
-
-n = 512
-m_list = [0,2,4,8,16,32,64,128,256]
-N = 3 
+from parameters import *
 
 def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray: 
     
@@ -59,7 +24,7 @@ def benchmark_recursive(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         B = generate_input(n)
         
         if sleep: time.sleep(20)
-        if warmup:
+        if warm_up:
             C = Matrix(n,n)
             f(A,B,C,m_list[m])
             C = Matrix(n,n)
@@ -88,7 +53,7 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
         B = generate_input(n)
         
         if sleep: time.sleep(20)
-        if warmup:
+        if warm_up:
             f(A,B,m_list[m])
             f(A,B,m_list[m])
         
@@ -103,19 +68,21 @@ def benchmark_strassen(f: FunType , m_list: list, n:int, N: int)->np.ndarray:
     stdevs = np.std(M,axis=1,ddof =1).reshape(m_list_length,1)
     return np.hstack ([means , stdevs ])
 
-def run_fixed_n():
+
+def run_write_through_fixed_n_experiment():
     # M-EXPERIMENT FOR WRITE-THROUGH
     res_write_through = benchmark_recursive(recursive_multiplication_write_through, m_list, n, N)
-    title_write_through = "n" + str(n) + "_recursive_write_through_n_fixed_mtest_ktob.csv"
-    relative_path_write_through = "experiments/Results/write_through_m_experiments/"
-    full_path_write_through = path + relative_path_write_through + title_write_through
-    write_csv(m_list, res_write_through, full_path_write_through, ["n","time(s)","stdv"])
+    title_write_through = "n" + str(n) + "_recursive_write_through_n_fixed_mtest.csv"
+    relative_path_write_through = "/experiments/results/"
+    full_path_write_through = parent + relative_path_write_through + title_write_through
+    write_csv(m_list, res_write_through, full_path_write_through, column_titles=column_titles_m)
 
 
+def run_strassen_fixed_n_experiment():
     # M-EXPERIMENT FOR STRASSEN
     res_strassen = benchmark_strassen(strassen, m_list, n, N)
-    title_strassen = "n" + str(n) + "_strassen_n_fixed_mtest_ktob.csv"
-    relative_path_strassen = "experiments/Results/strassen_m_experiments/"
-    full_path_strassen = path + relative_path_strassen + title_strassen
-    write_csv(m_list, res_strassen, full_path_strassen, ["m","time(s)","stdv"])
+    title_strassen = "n" + str(n) + "_strassen_n_fixed_mtest.csv"
+    relative_path_strassen = "/experiments/results/"
+    full_path_strassen = parent + relative_path_strassen + title_strassen
+    write_csv(m_list, res_strassen, full_path_strassen, column_titles=column_titles_m)
 

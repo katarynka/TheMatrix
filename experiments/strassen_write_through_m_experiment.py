@@ -1,43 +1,16 @@
 import sys
-import csv
-from typing import List , Tuple , Optional , Dict , Callable , Any
-import random
+import os
+  
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
 
-katarzyna = False
-sleep = False
-warmup = True
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+sys.path.append(parent)
 
-if katarzyna:
-    sys.path.append("/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix")
-    path = "/home/katarzyna/Documents/school/applied_algo/exam/fresh_copy/TheMatrix/"
-else:
-    sys.path.append("/home/gustavgyrst/Desktop/AA_Final/TheMatrix")
-    path = "/home/gustavgyrst/Desktop/AA_Final/TheMatrix/"
-    
-    # sys.path.append("C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\")
-    # path = "C:\\Users\\ggyrs\\OneDrive\\Desktop\\Matrix\\TheMatrix\\"
-
-from matrix_implementations import *
-from measurement import *
-
-OptTuple3i = Optional[Tuple[int ,int ,int]]
-FunType = Callable [[List[int]], OptTuple3i]
-
-def get_input_range(n):
-    lower_bound = 0
-    upper_bound = round(np.sqrt(2**(53)/n))
-    input_range = [lower_bound, upper_bound]
-    return input_range
-
-
-def generate_input(n: int) -> Matrix :
-    list= []
-    input_range = get_input_range(n)
-    for i in range(0,n*n):
-        random.seed(n + i)
-        l = random.randint(input_range[0],int(input_range[1]))
-        list.append(float(l))
-    return Matrix(n,n,np.array(list).reshape(n,n))
+from parameters import *
 
 
 def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #N is repetitions
@@ -51,7 +24,7 @@ def benchmark_recursive(f: FunType , n_list: list, m: int, N: int)->np.ndarray: 
         A = generate_input(n_list[n])
         B = generate_input(n_list[n])
         if sleep: time.sleep(20)
-        if warmup:
+        if warm_up:
             C = Matrix(n_list[n],n_list[n])
             f(A,B,C,m)
             C = Matrix(n_list[n],n_list[n])
@@ -79,7 +52,7 @@ def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #
         B = generate_input(n_list[n])
         if sleep: time.sleep(20)
 
-        if warmup:
+        if warm_up:
             f(A,B,m)
             f(A,B,m)
 
@@ -93,40 +66,18 @@ def benchmark_strassen(f: FunType , n_list: list, m: int, N: int)->np.ndarray: #
     return np.hstack ([means , stdevs ])
 
 
-def write_csv(n_list: list, res: np.ndarray, filename: str, column_titles:str=None):
-    """write_csv
+def run_write_through_multiple_n_experiment():
+    for m in m_list:
+        res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
+        relative_path = "/experiments/results/"
+        title = parent + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
+        
+        write_csv(n_list, res, title, column_titles=column_titles_n)
 
-    Args:
-        n_list (list): list of n (the matrix side length) that the the experiment is run with
-        res (np.ndarray): results from the experiment
-        filename (str): the filename that you desire
-        column_titles (lst): takes a list with the columns title for the csv file. The titles should be given comma seperated words and no spaces
-    """
-    with open(filename ,'w') as f:
-        writer = csv.writer(f)
-        if column_titles != None:
-            writer.writerow(column_titles)
-        for i in range(len(n_list)):
-            writer.writerow ([n_list[i]] + res[i,:].tolist())
 
-# The number of repetition we have for each experiment we run
-N = 3
-# list of n-values we test on.
-n_list = [2,4,8,16,32,64,128,256]
-# The list of m we are testing.
-m_list = [0,2,4,8,16,32,64,128]
-
-for m in m_list:
-    res = benchmark_recursive(recursive_multiplication_write_through, n_list, m, N)
-    relative_path = "experiments/Results/write_through_m_experiments/"
-    title = path + relative_path + str(m) + "_recursive_write_through_matrix_multiplication_mtest.csv"
-    
-    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
-
-if sleep: time.sleep(180)
-
-for m in m_list:
-    res = benchmark_strassen(strassen, n_list, m, N)
-    relative_path = "experiments/Results/strassen_m_experiments/"
-    title = path + relative_path + str(m) + "_strassen_matrix_multiplication_mtest.csv"
-    write_csv(n_list, res, title, column_titles=["n","time","stdv"])
+def run_strassen_multiple_n_experiment():
+    for m in m_list:
+        res = benchmark_strassen(strassen, n_list, m, N)
+        relative_path = "/experiments/results/"
+        title = parent + relative_path + str(m) + "_strassen_matrix_multiplication_mtest.csv"
+        write_csv(n_list, res, title, column_titles=column_titles_n)

@@ -187,15 +187,6 @@ def elementary_multiplication(A: Matrix, B: Matrix)->Matrix:
                 C._arr[i,j] += A._arr[i,k]*B._arr[k,j]
     return C
 
-def elementary_multiplication2(A: Matrix, B: Matrix)->Matrix:
-    n = A.cols()
-    C = Matrix(n,n)
-    for i in range(n):
-        for j in range(n):
-            np.sum(A[i,:]*B[:,j])
-    return C
-
-
 def transpose(A: Matrix)->None:
     a: int = A.cols()
     b = 0
@@ -220,19 +211,6 @@ def elementary_multiplication_transposed(A: Matrix, B: Matrix)->Matrix:
     return C
 
 
-def tiled_multiplication_fun_call(A: Matrix, B: Matrix, s: int)->Matrix:                
-    n = A.cols()
-    C = Matrix(n,n)
-
-    for i in range(n//s):
-        for j in range(n//s):
-            for k in range(n//s):
-                subA = A._arr[i*s:i*s+s,k*s:k*s+s]
-                subB = B._arr[k*s:k*s+s,j*s:j*s+s]
-                C._arr[i*s:i*s+s,j*s:j*s+s].__iadd__(elementary_multiplication(subA,subB))
-
-    return C
-
 def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:                
     n = A.cols()
     C = Matrix(n,n)
@@ -251,29 +229,6 @@ def tiled_multiplication(A: Matrix, B: Matrix, s: int)->Matrix:
                             subC[l,m] = temp
                 C[i*s:i*s+s,j*s:j*s+s].__iadd__(subC)
 
-    return C
-
-
-
-def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix:
-    
-    #Description
-
-    """
-    An auxiliary function that computes elementary matrix
-    multiplication in place, that is, the operation is C += AB such
-    that the product of AB is added to matrix C.
-    """
-
-    n = A.cols()
-
-    #This is the optimized algorithm using the i, k, j structure --> however the gain described
-    # and seen when we run it in Java, we do not get in python.
-    
-    for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                C._arr[i,j] += A._arr[i,k] * B._arr[k,j]
     return C
 
 
@@ -330,6 +285,26 @@ def recursive_multiplication_copying(A:Matrix , B:Matrix) -> Matrix:
         return C
 
 
+def elementary_multiplication_in_place(A: Matrix, B: Matrix, C: Matrix)-> Matrix:
+    
+    #Description
+
+    """
+    An auxiliary function that computes elementary matrix
+    multiplication in place, that is, the operation is C += AB such
+    that the product of AB is added to matrix C.
+    """
+
+    n = A.cols()
+
+    #This is the optimized algorithm using the i, k, j structure --> however the gain described
+    # and seen when we run it in Java, we do not get in python.
+    
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                C._arr[i,j] += A._arr[i,k] * B._arr[k,j]
+    return C
 
 def recursive_multiplication_write_through(A: Matrix, B: Matrix, C:Matrix, m=0)->Matrix:
     
