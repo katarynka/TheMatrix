@@ -5,6 +5,7 @@ from horse_race.recursive_write_through_matrix_multiplication_e import run_write
 from horse_race.tiled_matrix_multiplication_e import run_tiled_benchmark
 from horse_race.strassens_e import run_strassen_benchmark
 
+### run this file to run the horse race for all the implementations
 
 run_elementary_benchmark()
 run_transposed_benchmark()

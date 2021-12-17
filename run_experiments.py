@@ -2,6 +2,7 @@ from experiments.strassen_write_through_n_fixed_m_experiment import run_write_th
 from experiments.strassen_write_through_m_experiment import run_write_through_multiple_n_experiment, run_strassen_multiple_n_experiment
 from experiments.tiled_experiment import run_tiled_experiment
 
+### run this file to run all of the experiments, or comment out the not needed ones
 
 run_write_through_fixed_n_experiment()
 run_strassen_fixed_n_experiment()
