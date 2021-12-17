@@ -12,7 +12,7 @@ from running these experiments. It's subdirectory **plots** contains all plots.
 
 Directory **horse_race** contains the code for horse race experiments for all algorithms, along with the results.
 
-Direcotry **tests** contains the test files in jupyter notebook. 
+Directory **tests** contains the test files in jupyter notebook. 
 
 **matrix_implementations.py** contains all algorithms implementations.
 
